@@ -1,0 +1,20 @@
+{
+  "categoryId": "federal",
+  "pageNumber": 2,
+  "pageSize": 1,
+  "totalPages": 2,
+  "totalItems": 2,
+  "items": [
+    {
+      "id": "ben-jordan",
+      "name": "Ben Jordan",
+      "categoryId": "federal",
+      "summary": "Sample federal record used to demonstrate pagination and detail routes.",
+      "location": "Twin Falls, Idaho",
+      "imageAlt": "Illustrated placeholder portrait for Ben Jordan",
+      "imageExtension": "svg",
+      "tags": ["committee", "federal", "disclosures"],
+      "updatedAt": "2026-06-18"
+    }
+  ]
+}

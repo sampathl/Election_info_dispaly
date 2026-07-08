@@ -1,0 +1,16 @@
+[
+  {
+    "id": "federal",
+    "name": "Federal",
+    "description": "Example records representing national-level entities and filings.",
+    "entityCount": 2,
+    "featuredEntityIds": ["alice-smith", "ben-jordan"]
+  },
+  {
+    "id": "state",
+    "name": "State",
+    "description": "Example records for state-level entities and oversight data.",
+    "entityCount": 1,
+    "featuredEntityIds": ["carla-ruiz"]
+  }
+]

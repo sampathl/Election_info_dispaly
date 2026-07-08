@@ -1,0 +1,20 @@
+{
+  "categoryId": "federal",
+  "pageNumber": 1,
+  "pageSize": 1,
+  "totalPages": 2,
+  "totalItems": 2,
+  "items": [
+    {
+      "id": "alice-smith",
+      "name": "Alice Smith",
+      "categoryId": "federal",
+      "summary": "Campaign finance profile with recent filing highlights and source links.",
+      "location": "Boise, Idaho",
+      "imageAlt": "Illustrated placeholder portrait for Alice Smith",
+      "imageExtension": "svg",
+      "tags": ["campaign-finance", "federal", "filings"],
+      "updatedAt": "2026-06-20"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "siteName": "Civic Data Display",
+  "tagline": "A static-first starter for publishing public scraped data on the web.",
+  "description": "This mock dataset demonstrates how a React frontend can browse public records using static JSON files and image assets served from low-cost object storage.",
+  "lastUpdated": "2026-06-20",
+  "totalEntities": 3
+}

@@ -1,0 +1,20 @@
+{
+  "categoryId": "state",
+  "pageNumber": 1,
+  "pageSize": 1,
+  "totalPages": 1,
+  "totalItems": 1,
+  "items": [
+    {
+      "id": "carla-ruiz",
+      "name": "Carla Ruiz",
+      "categoryId": "state",
+      "summary": "State-level ethics example used to demonstrate alternate category data.",
+      "location": "Pocatello, Idaho",
+      "imageAlt": "Illustrated placeholder portrait for Carla Ruiz",
+      "imageExtension": "svg",
+      "tags": ["ethics", "state", "oversight"],
+      "updatedAt": "2026-06-12"
+    }
+  ]
+}

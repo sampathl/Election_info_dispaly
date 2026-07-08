@@ -1,0 +1,22 @@
+[
+  {
+    "label": "Home",
+    "to": "/"
+  },
+  {
+    "label": "Search",
+    "to": "/search"
+  },
+  {
+    "label": "About",
+    "to": "/about"
+  },
+  {
+    "label": "Sources",
+    "to": "/sources"
+  },
+  {
+    "label": "Disclaimer",
+    "to": "/disclaimer"
+  }
+]

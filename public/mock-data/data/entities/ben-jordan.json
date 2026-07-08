@@ -1,0 +1,37 @@
+{
+  "id": "ben-jordan",
+  "name": "Ben Jordan",
+  "categoryId": "federal",
+  "summary": "Sample federal record used to demonstrate pagination and detail routes.",
+  "description": "Ben Jordan exists in the starter as a second federal entity so the category page can demonstrate multi-page listing files. This mimics a pattern where each page is precomputed and uploaded independently.",
+  "location": "Twin Falls, Idaho",
+  "imageAlt": "Illustrated placeholder portrait for Ben Jordan",
+  "imageExtension": "svg",
+  "tags": ["committee", "federal", "disclosures"],
+  "updatedAt": "2026-06-18",
+  "galleryCount": 1,
+  "details": [
+    {
+      "label": "Jurisdiction",
+      "value": "Federal"
+    },
+    {
+      "label": "Status",
+      "value": "Committee sample"
+    },
+    {
+      "label": "Latest update",
+      "value": "Disclosure snapshot refreshed June 2026"
+    }
+  ],
+  "sourceUrls": [
+    {
+      "label": "Example committee filing",
+      "url": "https://example.com/federal/ben-jordan/committee-filing"
+    },
+    {
+      "label": "Sample oversight source",
+      "url": "https://example.com/federal/ben-jordan/source"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" fill="none">
+  <rect width="960" height="640" rx="48" fill="#EEF1FA" />
+  <rect x="90" y="92" width="780" height="456" rx="32" fill="#D2D8F1" />
+  <rect x="146" y="146" width="668" height="128" rx="24" fill="#FCFDFF" />
+  <rect x="146" y="314" width="428" height="26" rx="13" fill="#FCFDFF" />
+  <rect x="146" y="362" width="530" height="26" rx="13" fill="#D8DCF1" />
+  <text x="146" y="474" fill="#2F3568" font-family="Avenir Next, Segoe UI, sans-serif" font-size="46" font-weight="700">Ben Gallery Placeholder</text>
+</svg>

@@ -1,0 +1,37 @@
+{
+  "id": "carla-ruiz",
+  "name": "Carla Ruiz",
+  "categoryId": "state",
+  "summary": "State-level ethics example used to demonstrate alternate category data.",
+  "description": "Carla Ruiz demonstrates how the same typed frontend components can support a different category and a different source context without changing the core app structure.",
+  "location": "Pocatello, Idaho",
+  "imageAlt": "Illustrated placeholder portrait for Carla Ruiz",
+  "imageExtension": "svg",
+  "tags": ["ethics", "state", "oversight"],
+  "updatedAt": "2026-06-12",
+  "galleryCount": 1,
+  "details": [
+    {
+      "label": "Jurisdiction",
+      "value": "State"
+    },
+    {
+      "label": "Status",
+      "value": "Review sample"
+    },
+    {
+      "label": "Latest update",
+      "value": "Ethics disclosure refreshed June 2026"
+    }
+  ],
+  "sourceUrls": [
+    {
+      "label": "Example state filing",
+      "url": "https://example.com/state/carla-ruiz/filing"
+    },
+    {
+      "label": "Sample state profile source",
+      "url": "https://example.com/state/carla-ruiz/profile"
+    }
+  ]
+}

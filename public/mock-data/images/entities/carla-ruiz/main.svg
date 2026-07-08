@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" fill="none">
+  <rect width="960" height="640" rx="48" fill="#DDF0EA" />
+  <circle cx="298" cy="224" r="118" fill="#FBFEFD" />
+  <rect x="458" y="160" width="236" height="34" rx="17" fill="#FFFFFF" />
+  <rect x="458" y="214" width="302" height="26" rx="13" fill="#C7E1D8" />
+  <rect x="458" y="260" width="286" height="26" rx="13" fill="#C7E1D8" />
+  <rect x="130" y="420" width="692" height="26" rx="13" fill="#FFFFFF" />
+  <text x="130" y="520" fill="#244A43" font-family="Avenir Next, Segoe UI, sans-serif" font-size="52" font-weight="700">Carla Ruiz</text>
+</svg>

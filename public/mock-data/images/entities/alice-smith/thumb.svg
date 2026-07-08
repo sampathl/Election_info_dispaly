@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320" fill="none">
+  <rect width="480" height="320" rx="32" fill="#DBE6F6" />
+  <circle cx="166" cy="126" r="62" fill="#F7FAFF" />
+  <rect x="246" y="92" width="126" height="22" rx="11" fill="#FFFFFF" />
+  <rect x="246" y="128" width="156" height="18" rx="9" fill="#B9CAE6" />
+  <rect x="82" y="226" width="316" height="18" rx="9" fill="#FFFFFF" />
+  <text x="82" y="280" fill="#28405F" font-family="Avenir Next, Segoe UI, sans-serif" font-size="28" font-weight="700">Alice Smith</text>
+</svg>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "alice-smith",
+    "name": "Alice Smith",
+    "categoryId": "federal",
+    "summary": "Campaign finance profile with recent filing highlights and source links.",
+    "location": "Boise, Idaho",
+    "imageAlt": "Illustrated placeholder portrait for Alice Smith",
+    "imageExtension": "svg",
+    "tags": ["campaign-finance", "federal", "filings"],
+    "updatedAt": "2026-06-20",
+    "keywords": ["finance", "committee", "filing", "boise"]
+  },
+  {
+    "id": "ben-jordan",
+    "name": "Ben Jordan",
+    "categoryId": "federal",
+    "summary": "Sample federal record used to demonstrate pagination and detail routes.",
+    "location": "Twin Falls, Idaho",
+    "imageAlt": "Illustrated placeholder portrait for Ben Jordan",
+    "imageExtension": "svg",
+    "tags": ["committee", "federal", "disclosures"],
+    "updatedAt": "2026-06-18",
+    "keywords": ["disclosure", "committee", "twin falls", "oversight"]
+  },
+  {
+    "id": "carla-ruiz",
+    "name": "Carla Ruiz",
+    "categoryId": "state",
+    "summary": "State-level ethics example used to demonstrate alternate category data.",
+    "location": "Pocatello, Idaho",
+    "imageAlt": "Illustrated placeholder portrait for Carla Ruiz",
+    "imageExtension": "svg",
+    "tags": ["ethics", "state", "oversight"],
+    "updatedAt": "2026-06-12",
+    "keywords": ["ethics", "state", "pocatello", "disclosure"]
+  }
+]
