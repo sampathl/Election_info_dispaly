@@ -1,21 +1,20 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
+import { Text } from '@chakra-ui/react';
+
+import { AppSection } from '@/components/primitives/AppSection';
 
 export function NotFoundPage() {
   return (
-    <section className="page-section page-stack">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">Not found</p>
-          <h1>This route does not exist</h1>
-        </div>
-      </div>
-      <p className="section-description">
-        Cloudflare Pages will still serve the SPA shell because of the redirect rule, but the app
-        needs a matching route to render useful content.
-      </p>
-      <Link className="button" to="/">
-        Return home
-      </Link>
-    </section>
+    <AppSection
+      eyebrow="Not Found"
+      title="This route has not been rebuilt yet."
+      description="Return to the overview or preview route while the rewrite expands."
+      tone="muted"
+    >
+      <Text color="var(--chakra-colors-fg-muted)">
+        <NavLink to="/">Back to the rewrite overview</NavLink>
+      </Text>
+    </AppSection>
   );
 }

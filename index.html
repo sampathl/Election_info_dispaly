@@ -6,8 +6,32 @@
       name="description"
       content="Static-first starter for public-interest data sites on Cloudflare Pages and R2."
     />
+    <meta name="color-scheme" content="light dark" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Civic Data Display</title>
+    <script>
+      (() => {
+        const storageKey = 'election-info-theme-mode';
+        const root = document.documentElement;
+
+        try {
+          const storedMode = window.localStorage.getItem(storageKey);
+          const nextMode =
+            storedMode === 'dark' || storedMode === 'light'
+              ? storedMode
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+
+          root.classList.remove('light', 'dark');
+          root.classList.add(nextMode);
+          root.style.colorScheme = nextMode;
+        } catch {
+          root.classList.add('light');
+          root.style.colorScheme = 'light';
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

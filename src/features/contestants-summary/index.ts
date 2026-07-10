@@ -1,0 +1,1 @@
+export { ContestantsSummaryPage } from './ContestantsSummaryPage';

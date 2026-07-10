@@ -1,0 +1,3851 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-accent="indigo" data-texture-mode="subtle">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Standalone design-system guide and preview for election data interfaces."
+    />
+    <title>Election Data Design System</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+
+        /* ===== NEUTRAL SCALE (cool-neutral, not warm-cream) ===== */
+        --gray-50: #f8f9fa;
+        --gray-100: #eef0f2;
+        --gray-200: #dde1e6;
+        --gray-300: #c3c9d1;
+        --gray-400: #9aa2ad;
+        --gray-500: #717986;
+        --gray-600: #545c68;
+        --gray-700: #3b4149;
+        --gray-800: #24272c;
+        --gray-900: #16181b;
+        --gray-950: #0b0c0e;
+
+        /* ===== ACCENT — institutional indigo-blue ===== */
+        --accent-400: #7b93e8;
+        --accent-500: #4a66e0;
+        --accent-600: #3554d1;
+        --accent-700: #2a419e;
+
+        /* ===== SEMANTIC ===== */
+        --success: #78d98a;
+        --warning: #ffc857;
+        --error: #ff4b57;
+        --info: #6ec5ff;
+
+        /* ===== CATEGORICAL CHART PALETTE — colorblind-safe ===== */
+        --cat-1: #0072b2;
+        --cat-2: #d55e00;
+        --cat-3: #009e73;
+        --cat-4: #cc79a7;
+        --cat-5: #56b4e9;
+        --cat-6: #7b5ea7;
+
+        /* ===== TYPE ===== */
+        --font-ui: "IBM Plex Sans", "IBM Plex Sans Devanagari", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+        /* ===== SPACING — 8pt grid + 4px half-step ===== */
+        --sp-2xs: 4px;
+        --sp-xs: 8px;
+        --sp-sm: 12px;
+        --sp-md: 16px;
+        --sp-lg: 24px;
+        --sp-xl: 32px;
+        --sp-2xl: 48px;
+        --sp-3xl: 64px;
+        --sp-4xl: 96px;
+
+        /* ===== RADIUS ===== */
+        --r-sm: 6px;
+        --r-md: 10px;
+        --r-lg: 16px;
+        --r-pill: 999px;
+
+        /* ===== SURFACE (light default) ===== */
+        --theme-charcoal: #2f2b27;
+        --theme-charcoal-strong: #26221f;
+        --theme-charcoal-muted: #5f5952;
+        --semantic-badge-ink: var(--theme-charcoal-strong);
+        --bg: #ffffff;
+        --surface: var(--gray-50);
+        --surface-raised: #ffffff;
+        --border: var(--gray-200);
+        --text-primary: var(--theme-charcoal);
+        --text-secondary: var(--theme-charcoal-muted);
+        --shadow-card: 0 1px 2px rgba(11, 12, 14, 0.04), 0 4px 12px rgba(11, 12, 14, 0.06);
+        --shadow-raised: 0 2px 4px rgba(11, 12, 14, 0.06), 0 12px 32px rgba(11, 12, 14, 0.1);
+        --accent: var(--accent-600);
+        --accent-hover: var(--accent-700);
+        --motion-fast: 180ms;
+        --motion-base: 260ms;
+        --motion-slow: 700ms;
+        --texture-opacity: 0.14;
+      }
+
+      [data-accent="teal"] {
+        --accent-400: #79bac8;
+        --accent-500: #3998ac;
+        --accent-600: #217b92;
+        --accent-700: #176177;
+      }
+
+      [data-accent="slate"] {
+        --accent-400: #98a5c7;
+        --accent-500: #6f83b7;
+        --accent-600: #576a9b;
+        --accent-700: #41517d;
+      }
+
+      [data-accent="copper"] {
+        --accent-400: #d19b77;
+        --accent-500: #b97a4f;
+        --accent-600: #995c34;
+        --accent-700: #794427;
+      }
+
+      [data-texture-mode="flat"] {
+        --texture-opacity: 0;
+      }
+
+      [data-texture-mode="subtle"] {
+        --texture-opacity: 0.14;
+      }
+
+      [data-texture-mode="bold"] {
+        --texture-opacity: 0.28;
+      }
+
+      [data-theme="dark"] {
+        color-scheme: dark;
+        --bg: var(--gray-950);
+        --surface: var(--gray-900);
+        --surface-raised: var(--gray-800);
+        --border: var(--gray-700);
+        --text-primary: var(--gray-50);
+        --text-secondary: var(--gray-400);
+        --shadow-card: none;
+        --shadow-raised: none;
+        --accent: var(--accent-400);
+        --accent-hover: var(--accent-500);
+        --semantic-badge-ink: var(--gray-50);
+      }
+
+      [data-theme="dark"] .card {
+        border: 1px solid var(--border);
+      }
+
+      /* ===== CLICHE COMPARISON THEME — warm cream + terracotta ===== */
+      [data-theme="cream"] {
+        color-scheme: light;
+        --bg: #f4f1ea;
+        --surface: #eee8dc;
+        --surface-raised: #fbf9f4;
+        --border: #e0d6c3;
+        --text-primary: var(--theme-charcoal);
+        --text-secondary: var(--theme-charcoal-muted);
+        --accent: #d97757;
+        --accent-hover: #c0603f;
+        --success: #78d98a;
+        --warning: #ffc857;
+        --error: #ff4b57;
+        --info: #6ec5ff;
+        --semantic-badge-ink: var(--theme-charcoal-strong);
+        --shadow-card: 0 1px 2px rgba(43, 36, 28, 0.06), 0 4px 12px rgba(43, 36, 28, 0.08);
+      }
+
+      [data-theme="cream"] .card {
+        border: 1px solid var(--border);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text-primary);
+        font-family: var(--font-ui);
+        font-size: 16px;
+        line-height: 1.6;
+        transition:
+          background-color var(--motion-base) ease,
+          color var(--motion-fast) ease;
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: var(--sp-2xl) var(--sp-lg) var(--sp-4xl);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-md);
+        padding: var(--sp-md) var(--sp-lg);
+        background: color-mix(in srgb, var(--surface) 92%, transparent);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+      }
+
+      .topbar h1 {
+        margin: 0;
+        color: var(--page-heading, var(--text-primary));
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .toggle {
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 500;
+        padding: var(--sp-2xs) var(--sp-sm);
+        border-radius: var(--r-pill);
+        border: 1px solid var(--border);
+        background: var(--surface-raised);
+        color: var(--text-primary);
+        cursor: pointer;
+      }
+
+      .toggle:hover {
+        border-color: var(--accent);
+      }
+
+      .toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      body,
+      .topbar,
+      .card,
+      .swatch,
+      .swatch .label,
+      .fill,
+      .btn,
+      .alert,
+      input[type="text"],
+      th,
+      td,
+      .sp-bar,
+      .control-chip,
+      .texture-card,
+      .texture-card__band,
+      .texture-chip,
+      .control-note {
+        transition:
+          background-color var(--motion-base) ease,
+          color var(--motion-fast) ease,
+          border-color var(--motion-fast) ease,
+          box-shadow var(--motion-base) ease,
+          transform var(--motion-fast) ease;
+      }
+
+      section {
+        margin-top: var(--sp-4xl);
+      }
+
+      h2 {
+        margin: 0 0 var(--sp-2xs);
+        color: var(--page-heading, var(--text-primary));
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .lede {
+        max-width: 62ch;
+        margin: 0 0 var(--sp-lg);
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        gap: var(--sp-md);
+      }
+
+      .cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .cols-6 {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .cols-3,
+        .cols-4,
+        .cols-6 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .type-row {
+          flex-direction: column;
+          gap: var(--sp-xs);
+        }
+
+        .type-row .meta {
+          flex-basis: auto;
+        }
+      }
+
+      .swatch {
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+      }
+
+      .swatch .fill {
+        height: 56px;
+      }
+
+      .swatch .label {
+        padding: var(--sp-xs) var(--sp-sm);
+        background: var(--surface-raised);
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-family: var(--font-mono);
+      }
+
+      .swatch .label b {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--text-primary);
+        font-size: 13px;
+        font-family: var(--font-ui);
+        font-weight: 500;
+      }
+
+      .type-row {
+        display: flex;
+        align-items: baseline;
+        gap: var(--sp-lg);
+        padding: var(--sp-md) 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .type-row .meta {
+        flex: 0 0 130px;
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-family: var(--font-mono);
+        line-height: 1.5;
+      }
+
+      .type-row .sample {
+        flex: 1;
+      }
+
+      .sp-row {
+        display: flex;
+        align-items: center;
+        gap: var(--sp-md);
+        padding: var(--sp-xs) 0;
+      }
+
+      .sp-bar {
+        height: 10px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
+
+      .sp-row .name {
+        flex: 0 0 60px;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-family: var(--font-mono);
+      }
+
+      .sp-row .px {
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-family: var(--font-mono);
+      }
+
+      .card {
+        padding: var(--sp-lg);
+        background: var(--surface-raised);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-card);
+      }
+
+      .playground {
+        display: grid;
+        gap: var(--sp-lg);
+      }
+
+      .playground__row {
+        display: grid;
+        gap: var(--sp-lg);
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      }
+
+      .playground__row--stack {
+        grid-template-columns: 1fr;
+      }
+
+      .control-group {
+        display: grid;
+        gap: var(--sp-sm);
+      }
+
+      .control-label {
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .control-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--sp-xs);
+      }
+
+      .control-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-pill);
+        background: var(--surface);
+        color: var(--text-primary);
+        font-family: var(--font-ui);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .control-chip:hover {
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+
+      .control-chip.is-active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .control-chip__swatch {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+      }
+
+      .control-note {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .motion-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-md);
+        flex-wrap: wrap;
+      }
+
+      .texture-grid {
+        margin-top: var(--sp-xs);
+      }
+
+      .texture-card {
+        position: relative;
+        display: grid;
+        gap: var(--sp-md);
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--series-color) 18%, var(--border));
+        background: color-mix(in srgb, var(--series-color) 5%, var(--surface-raised));
+      }
+
+      .texture-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 4px;
+        background: var(--series-color);
+      }
+
+      .texture-card:hover {
+        box-shadow: var(--shadow-raised);
+        transform: translateY(-2px);
+      }
+
+      .texture-card__band {
+        min-height: 84px;
+        border-radius: var(--r-md);
+        background-color: color-mix(in srgb, var(--series-color) 80%, white);
+        background-image: var(--texture-pattern);
+        background-repeat: repeat;
+        background-size: var(--texture-size, auto);
+      }
+
+      .texture-card__meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+        flex-wrap: wrap;
+      }
+
+      .texture-card__title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .texture-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 10px;
+        border-radius: var(--r-pill);
+        background: color-mix(in srgb, var(--series-color) 14%, var(--surface-raised));
+        color: color-mix(in srgb, var(--series-color) 72%, var(--text-primary));
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .texture-card__pattern {
+        color: var(--text-secondary);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .fill--series {
+        background-color: var(--series-color);
+        background-image: var(--texture-pattern);
+        background-repeat: repeat;
+        background-size: var(--texture-size, auto);
+      }
+
+      [data-series="1"] {
+        --series-color: var(--cat-1);
+      }
+
+      [data-series="2"] {
+        --series-color: var(--cat-2);
+      }
+
+      [data-series="3"] {
+        --series-color: var(--cat-3);
+      }
+
+      [data-series="4"] {
+        --series-color: var(--cat-4);
+      }
+
+      [data-series="5"] {
+        --series-color: var(--cat-5);
+      }
+
+      [data-series="6"] {
+        --series-color: var(--cat-6);
+      }
+
+      [data-pattern="stripes"] {
+        --texture-pattern: repeating-linear-gradient(
+          135deg,
+          rgb(255 255 255 / var(--texture-opacity)) 0 10px,
+          transparent 10px 20px
+        );
+      }
+
+      [data-pattern="dots"] {
+        --texture-pattern: radial-gradient(
+          circle at 3px 3px,
+          rgb(255 255 255 / var(--texture-opacity)) 0 2px,
+          transparent 2.4px
+        );
+        --texture-size: 14px 14px;
+      }
+
+      [data-pattern="grid"] {
+        --texture-pattern:
+          linear-gradient(rgb(255 255 255 / var(--texture-opacity)) 1px, transparent 1px),
+          linear-gradient(90deg, rgb(255 255 255 / var(--texture-opacity)) 1px, transparent 1px);
+        --texture-size: 12px 12px, 12px 12px;
+      }
+
+      [data-pattern="rails"] {
+        --texture-pattern: repeating-linear-gradient(
+          90deg,
+          rgb(255 255 255 / var(--texture-opacity)) 0 3px,
+          transparent 3px 12px
+        );
+      }
+
+      [data-pattern="steps"] {
+        --texture-pattern: repeating-linear-gradient(
+          135deg,
+          rgb(255 255 255 / var(--texture-opacity)) 0 3px,
+          transparent 3px 10px,
+          rgb(255 255 255 / var(--texture-opacity)) 10px 12px,
+          transparent 12px 18px
+        );
+      }
+
+      [data-pattern="weave"] {
+        --texture-pattern: linear-gradient(
+          45deg,
+          rgb(255 255 255 / var(--texture-opacity)) 25%,
+          transparent 25%,
+          transparent 50%,
+          rgb(255 255 255 / var(--texture-opacity)) 50%,
+          rgb(255 255 255 / var(--texture-opacity)) 75%,
+          transparent 75%,
+          transparent
+        );
+        --texture-size: 14px 14px;
+      }
+
+      .btn {
+        padding: var(--sp-xs) var(--sp-md);
+        border: 1px solid transparent;
+        border-radius: var(--r-sm);
+        font-family: var(--font-ui);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: var(--page-primary-action, var(--accent));
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background: var(--page-primary-action-hover, var(--accent-hover));
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border-color: var(--border);
+        color: var(--text-primary);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--accent);
+      }
+
+      .btn-disabled {
+        background: var(--gray-300);
+        color: var(--gray-500);
+        cursor: not-allowed;
+      }
+
+      .btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .alert {
+        display: flex;
+        gap: var(--sp-sm);
+        margin-bottom: var(--sp-xs);
+        padding: var(--sp-sm) var(--sp-md);
+        border: 1px solid;
+        border-radius: var(--r-md);
+        font-size: 13px;
+      }
+
+      .alert.success {
+        background: color-mix(in srgb, var(--success) 10%, var(--bg));
+        border-color: var(--success);
+        color: var(--success);
+      }
+
+      .alert.warning {
+        background: color-mix(in srgb, var(--warning) 10%, var(--bg));
+        border-color: var(--warning);
+        color: var(--warning);
+      }
+
+      .alert.error {
+        background: color-mix(in srgb, var(--error) 10%, var(--bg));
+        border-color: var(--error);
+        color: var(--error);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      th {
+        padding: var(--sp-xs) var(--sp-sm);
+        border-bottom: 1px solid var(--border);
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 500;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      td {
+        padding: var(--sp-sm);
+        border-bottom: 1px solid var(--border);
+      }
+
+      td.num {
+        text-align: right;
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+
+      tr:hover td {
+        background: var(--surface);
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: var(--sp-xs) var(--sp-sm);
+        border: 1px solid var(--border);
+        border-radius: var(--r-sm);
+        background: var(--surface-raised);
+        color: var(--text-primary);
+        font-family: var(--font-ui);
+        font-size: 14px;
+      }
+
+      input:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 1px;
+        border-color: transparent;
+      }
+
+      .rule {
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .rule b {
+        color: var(--text-primary);
+      }
+
+      .hero {
+        margin-top: var(--sp-xl);
+        padding: var(--sp-2xl);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 12%, transparent), transparent 36%),
+          linear-gradient(180deg, color-mix(in srgb, var(--surface-raised) 92%, transparent), var(--surface));
+        box-shadow: var(--shadow-raised);
+      }
+
+      .hero__grid {
+        display: grid;
+        gap: var(--sp-xl);
+        grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.9fr);
+      }
+
+      .hero__kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--sp-xs);
+        margin-bottom: var(--sp-sm);
+        padding: 7px 12px;
+        border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--border));
+        border-radius: var(--r-pill);
+        background: color-mix(in srgb, var(--accent) 6%, var(--surface-raised));
+        color: var(--text-primary);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .hero h2 {
+        margin: 0 0 var(--sp-sm);
+        max-width: 11ch;
+        font-size: clamp(36px, 6vw, 56px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+      }
+
+      .hero__lede {
+        max-width: 56ch;
+        margin: 0 0 var(--sp-lg);
+        color: var(--text-secondary);
+        font-size: 16px;
+      }
+
+      .hero__actions,
+      .hero__metrics,
+      .principles-grid,
+      .variation-grid,
+      .variation-frame__grid,
+      .variation-stack,
+      .variation-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--sp-sm);
+      }
+
+      .hero__metrics {
+        display: grid;
+        gap: var(--sp-sm);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .hero__metric,
+      .principle-card,
+      .variation-frame,
+      .variation-side,
+      .variation-strip,
+      .variation-list {
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        background: color-mix(in srgb, var(--surface-raised) 94%, transparent);
+      }
+
+      .hero__metric {
+        padding: var(--sp-md);
+      }
+
+      .hero__metric span,
+      .principle-card span,
+      .variation-label,
+      .variation-strip span {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .hero__metric strong {
+        display: block;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      .hero__metric small,
+      .principle-card p,
+      .variation-copy p,
+      .variation-note,
+      .variation-list p,
+      .variation-panel p {
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      .hero__aside {
+        display: grid;
+        gap: var(--sp-md);
+      }
+
+      .principles-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .principle-card {
+        padding: var(--sp-md);
+      }
+
+      .principle-card strong,
+      .variation-copy h3 {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .section-intro {
+        max-width: 66ch;
+        margin: 0 0 var(--sp-lg);
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      .foundation-grid,
+      .variation-grid {
+        display: grid;
+        gap: var(--sp-lg);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .variation-card {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-lg);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        background: var(--surface-raised);
+        box-shadow: var(--shadow-card);
+      }
+
+      .variation-copy h3 {
+        margin: 0 0 4px;
+      }
+
+      .variation-copy p {
+        margin: 0;
+      }
+
+      .variation-frame {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-md);
+        background: var(--surface);
+      }
+
+      .variation-frame__grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(180px, 0.8fr);
+      }
+
+      .variation-panel,
+      .variation-side {
+        padding: var(--sp-md);
+      }
+
+      .variation-panel {
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface-raised);
+      }
+
+      .variation-side {
+        display: grid;
+        gap: var(--sp-sm);
+        padding: var(--sp-md);
+      }
+
+      .variation-stat {
+        display: grid;
+        gap: 4px;
+        padding: var(--sp-sm);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: color-mix(in srgb, var(--surface-raised) 92%, transparent);
+      }
+
+      .variation-stat strong {
+        font-size: 22px;
+        line-height: 1.1;
+      }
+
+      .variation-strip {
+        padding: var(--sp-md);
+      }
+
+      .variation-bars {
+        display: grid;
+        gap: var(--sp-xs);
+      }
+
+      .variation-bar {
+        height: 9px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--surface-raised) 70%, var(--border));
+        overflow: hidden;
+      }
+
+      .variation-bar > i {
+        display: block;
+        width: var(--bar, 50%);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent), var(--page-primary-action, var(--accent)));
+      }
+
+      .variation-list {
+        display: grid;
+        gap: var(--sp-sm);
+        padding: var(--sp-md);
+      }
+
+      .variation-list__row {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+      }
+
+      .variation-list__row strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 14px;
+      }
+
+      .variation-phone {
+        width: min(100%, 320px);
+        margin: 0 auto;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: var(--surface);
+        box-shadow: var(--shadow-card);
+      }
+
+      .variation-phone__screen {
+        display: grid;
+        gap: var(--sp-sm);
+        padding: var(--sp-md);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--surface-raised);
+      }
+
+      .variation-phone__screen h4,
+      .variation-panel h4,
+      .variation-strip strong {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .variation-phone__screen p,
+      .variation-panel p {
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .variation-step {
+        display: flex;
+        align-items: center;
+        gap: var(--sp-sm);
+        padding: var(--sp-sm);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+      }
+
+      .variation-step__num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent) 16%, var(--surface-raised));
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .variation-presentation {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-lg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background:
+          linear-gradient(180deg, color-mix(in srgb, var(--accent) 8%, var(--surface-raised)), var(--surface));
+      }
+
+      .variation-presentation__head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: var(--sp-md);
+      }
+
+      .variation-presentation__head h4 {
+        margin: 0 0 4px;
+        font-size: 24px;
+        line-height: 1.05;
+      }
+
+      .variation-presentation__grid {
+        display: grid;
+        gap: var(--sp-md);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .color-experiment {
+        display: grid;
+        gap: var(--sp-xl);
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+        border: 1px solid;
+        border-radius: var(--r-pill);
+        color: var(--semantic-badge-ink);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .status-pill--success {
+        border-color: color-mix(in srgb, var(--success) 42%, var(--surface-raised));
+        background: color-mix(in srgb, var(--success) 18%, var(--surface-raised));
+      }
+
+      .status-pill--warning {
+        border-color: color-mix(in srgb, var(--warning) 42%, var(--surface-raised));
+        background: color-mix(in srgb, var(--warning) 18%, var(--surface-raised));
+      }
+
+      .status-pill--error {
+        border-color: color-mix(in srgb, var(--error) 42%, var(--surface-raised));
+        background: color-mix(in srgb, var(--error) 18%, var(--surface-raised));
+      }
+
+      .status-pill--info {
+        border-color: color-mix(in srgb, var(--info) 42%, var(--surface-raised));
+        background: color-mix(in srgb, var(--info) 18%, var(--surface-raised));
+      }
+
+      .color-experiment__toolbar {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: var(--sp-lg);
+        flex-wrap: wrap;
+      }
+
+      .color-experiment__toolbar-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--sp-xs);
+      }
+
+      .color-experiment__inputs {
+        display: grid;
+        gap: var(--sp-md);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .experiment-input-card {
+        display: grid;
+        gap: var(--sp-xs);
+        padding: var(--sp-md);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+      }
+
+      .experiment-input-card.is-invalid {
+        border-color: var(--error);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--error) 28%, transparent);
+      }
+
+      .experiment-input-card__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+      }
+
+      .experiment-input-card__title {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .experiment-input-card__swatch {
+        width: 18px;
+        height: 18px;
+        border: 1px solid color-mix(in srgb, var(--text-primary) 12%, transparent);
+        border-radius: 999px;
+        background: var(--surface-raised);
+      }
+
+      .experiment-input-card__field {
+        margin-top: 2px;
+      }
+
+      .experiment-input-card__values {
+        display: grid;
+        gap: 3px;
+      }
+
+      .experiment-input-card__value {
+        color: var(--text-secondary);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        line-height: 1.45;
+      }
+
+      .experiment-input-card__message {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .experiment-input-card__message.is-error {
+        color: var(--error);
+      }
+
+      .color-experiment__copy-status {
+        min-height: 1.2rem;
+        margin: calc(var(--sp-sm) * -1) 0 0;
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .color-experiment__apply-note {
+        min-height: 1.2rem;
+        margin: calc(var(--sp-sm) * -1) 0 0;
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .color-experiment__presets {
+        display: grid;
+        gap: var(--sp-sm);
+      }
+
+      .color-experiment__preset-grid {
+        display: grid;
+        gap: var(--sp-sm);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .preset-chip {
+        display: grid;
+        gap: var(--sp-xs);
+        padding: var(--sp-sm);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+        color: var(--text-primary);
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .preset-chip:hover {
+        border-color: var(--accent);
+        box-shadow: var(--shadow-card);
+        transform: translateY(-1px);
+      }
+
+      .preset-chip.is-active {
+        border-color: var(--accent);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent);
+        background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+      }
+
+      .preset-chip__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+      }
+
+      .preset-chip__name {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .preset-chip__meta {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .preset-chip__swatches {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .preset-chip__swatch {
+        width: 14px;
+        height: 14px;
+        border: 1px solid color-mix(in srgb, var(--text-primary) 12%, transparent);
+        border-radius: 999px;
+      }
+
+      .color-experiment__preview-shell {
+        padding: var(--sp-sm);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+      }
+
+      #colorExperimentScope {
+        --experiment-preview-bg: var(--color-surface-50, #f8f9fa);
+        --experiment-preview-card-bg: var(--color-surface-100, #ffffff);
+        --experiment-preview-border: var(--color-neutral-200, var(--border));
+        --experiment-preview-text: var(--theme-charcoal);
+        --experiment-preview-heading: var(--theme-charcoal-strong);
+        --experiment-preview-muted: var(--theme-charcoal-muted);
+        --experiment-preview-link: var(--color-accent-700, #2a419e);
+        --experiment-preview-primary-action: var(--page-primary-action, var(--color-primary-700, #2a419e));
+        --experiment-preview-primary-action-hover: var(--page-primary-action-hover, var(--color-primary-800, #22337f));
+        --experiment-preview-badge-text: var(--semantic-badge-ink);
+        --experiment-preview-secondary-bg: var(--color-surface-200, #eef0f2);
+        --experiment-preview-secondary-text: var(--theme-charcoal-strong);
+        --experiment-preview-shadow: 0 18px 36px rgba(17, 24, 39, 0.07);
+      }
+
+      [data-theme="dark"] #colorExperimentScope {
+        --experiment-preview-bg: var(--experiment-preview-deep-bg, #121212);
+        --experiment-preview-card-bg: var(--experiment-preview-deep-card, #1d1d1d);
+        --experiment-preview-border: var(--experiment-preview-deep-border, #525252);
+        --experiment-preview-text: var(--color-neutral-100, #f0f0f0);
+        --experiment-preview-heading: var(--color-neutral-50, #ffffff);
+        --experiment-preview-muted: var(--color-neutral-300, #c8c8c8);
+        --experiment-preview-link: var(--color-accent-300, #8fa2ff);
+        --experiment-preview-primary-action: var(--page-primary-action, var(--color-primary-700, #3554d1));
+        --experiment-preview-primary-action-hover: var(--page-primary-action-hover, var(--color-primary-800, #2a419e));
+        --experiment-preview-badge-text: var(--semantic-badge-ink);
+        --experiment-preview-secondary-bg: var(--experiment-preview-deep-secondary, #2a2a2a);
+        --experiment-preview-secondary-text: var(--color-neutral-100, #f0f0f0);
+        --experiment-preview-shadow: none;
+      }
+
+      .experiment-preview-scope {
+        display: grid;
+        gap: var(--sp-lg);
+        padding: var(--sp-xl);
+        border: 1px solid var(--experiment-preview-border);
+        border-radius: var(--r-lg);
+        background: var(--experiment-preview-bg);
+        color: var(--experiment-preview-text);
+      }
+
+      .experiment-preview-scope a {
+        color: var(--experiment-preview-link);
+        text-decoration: none;
+      }
+
+      .experiment-preview-scope a:hover {
+        text-decoration: underline;
+      }
+
+      .experiment-preview-meta {
+        display: grid;
+        gap: var(--sp-sm);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .experiment-preview-meta div {
+        padding: var(--sp-sm);
+        border: 1px solid var(--experiment-preview-border);
+        border-radius: var(--r-md);
+        background: color-mix(in srgb, var(--experiment-preview-card-bg) 92%, transparent);
+      }
+
+      .experiment-preview-meta span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--experiment-preview-muted);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .experiment-preview-meta strong {
+        color: var(--experiment-preview-heading);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .experiment-preview-card {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-lg);
+        border: 1px solid var(--experiment-preview-border);
+        border-radius: var(--r-lg);
+        background: var(--experiment-preview-card-bg);
+        box-shadow: var(--experiment-preview-shadow);
+      }
+
+      .experiment-preview-card__eyebrow {
+        margin: 0;
+        color: var(--color-accent-600, #3554d1);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .experiment-preview-card__title {
+        margin: 0;
+        color: var(--experiment-preview-heading);
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .experiment-preview-card__body {
+        margin: 0;
+        color: var(--experiment-preview-text);
+      }
+
+      .experiment-preview-card__muted {
+        margin: 0;
+        color: var(--experiment-preview-muted);
+        font-size: 14px;
+      }
+
+      .experiment-preview-actions,
+      .experiment-preview-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--sp-sm);
+      }
+
+      .experiment-preview-button {
+        padding: 10px 16px;
+        border: 1px solid transparent;
+        border-radius: var(--r-sm);
+        font-family: var(--font-ui);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .experiment-preview-button--primary {
+        background: var(--experiment-preview-primary-action);
+        color: var(--color-surface-50, white);
+      }
+
+      .experiment-preview-button--primary:hover {
+        background: var(--experiment-preview-primary-action-hover);
+      }
+
+      .experiment-preview-button--secondary {
+        border-color: var(--experiment-preview-border);
+        background: var(--experiment-preview-secondary-bg);
+        color: var(--experiment-preview-secondary-text);
+      }
+
+      .experiment-preview-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        border: 1px solid;
+        border-radius: var(--r-pill);
+        color: var(--experiment-preview-badge-text);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .experiment-preview-badge--success {
+        border-color: color-mix(in srgb, var(--color-success, #1e7f4f) 42%, var(--experiment-preview-card-bg));
+        background: color-mix(in srgb, var(--color-success, #1e7f4f) 18%, var(--experiment-preview-card-bg));
+      }
+
+      .experiment-preview-badge--warning {
+        border-color: color-mix(in srgb, var(--color-warning, #b45309) 42%, var(--experiment-preview-card-bg));
+        background: color-mix(in srgb, var(--color-warning, #b45309) 18%, var(--experiment-preview-card-bg));
+      }
+
+      .experiment-preview-badge--error {
+        border-color: color-mix(in srgb, var(--color-error, #c22e3a) 42%, var(--experiment-preview-card-bg));
+        background: color-mix(in srgb, var(--color-error, #c22e3a) 18%, var(--experiment-preview-card-bg));
+      }
+
+      .experiment-preview-badge--info {
+        border-color: color-mix(in srgb, var(--color-info, #0e7490) 42%, var(--experiment-preview-card-bg));
+        background: color-mix(in srgb, var(--color-info, #0e7490) 18%, var(--experiment-preview-card-bg));
+      }
+
+      .pattern-grid {
+        display: grid;
+        gap: var(--sp-lg);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pattern-card {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-lg);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        background: var(--surface-raised);
+        box-shadow: var(--shadow-card);
+      }
+
+      .pattern-card--wide {
+        grid-column: span 2;
+      }
+
+      .pattern-card__head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--sp-md);
+      }
+
+      .pattern-card__head h3,
+      .pattern-state h3 {
+        margin: 0 0 6px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .pattern-card__head p,
+      .pattern-state p,
+      .pattern-note,
+      .field-help {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 13px;
+      }
+
+      .pattern-kpis {
+        display: grid;
+        gap: var(--sp-sm);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .pattern-kpi,
+      .pattern-panel,
+      .pattern-state {
+        padding: var(--sp-md);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+      }
+
+      .pattern-kpi span,
+      .pattern-panel__eyebrow,
+      .field label {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--text-secondary);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .pattern-kpi strong {
+        display: block;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+
+      .pattern-kpi small {
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .pattern-toolbar,
+      .pattern-actions,
+      .stepper,
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--sp-sm);
+      }
+
+      .pattern-search {
+        min-width: 220px;
+        flex: 1 1 220px;
+      }
+
+      .pattern-chip,
+      .step {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--sp-xs);
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-pill);
+        background: var(--surface);
+        color: var(--text-primary);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .pattern-chip.is-active,
+      .step.is-active {
+        border-color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+      }
+
+      .step__index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent) 16%, var(--surface-raised));
+        color: var(--text-primary);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .pattern-split,
+      .pattern-state-grid {
+        display: grid;
+        gap: var(--sp-md);
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.9fr);
+      }
+
+      .pattern-panel__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+        margin-bottom: var(--sp-sm);
+      }
+
+      .pattern-panel__top strong {
+        font-size: 15px;
+      }
+
+      .pattern-panel__top a {
+        color: var(--accent);
+        font-size: 13px;
+        text-decoration: none;
+      }
+
+      .pattern-panel__top a:hover {
+        text-decoration: underline;
+      }
+
+      .pattern-bars,
+      .pattern-list,
+      .review-list,
+      .decision-list {
+        display: grid;
+        gap: var(--sp-sm);
+      }
+
+      .pattern-bar {
+        display: grid;
+        gap: 6px;
+      }
+
+      .pattern-bar__meta,
+      .review-item__meta,
+      .decision-item__meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--sp-sm);
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .pattern-bar__track,
+      .skeleton-line {
+        overflow: hidden;
+        height: 10px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--surface-raised) 70%, var(--border));
+      }
+
+      .pattern-bar__fill {
+        width: var(--bar, 50%);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent), var(--page-primary-action, var(--accent)));
+      }
+
+      .pattern-list__row,
+      .review-item,
+      .decision-item {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--sp-md);
+        padding: var(--sp-sm) 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .pattern-list__row:last-child,
+      .review-item:last-child,
+      .decision-item:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .pattern-list__row:first-child,
+      .review-item:first-child,
+      .decision-item:first-child {
+        padding-top: 0;
+      }
+
+      .pattern-list__row strong,
+      .review-item strong,
+      .decision-item strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 14px;
+      }
+
+      .pattern-list__row p,
+      .review-item p,
+      .decision-item p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: var(--sp-md);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      .field--full {
+        grid-column: 1 / -1;
+      }
+
+      .field-help.is-error {
+        color: var(--error);
+      }
+
+      .pattern-state-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .pattern-state h4 {
+        margin: 0 0 var(--sp-xs);
+        font-size: 18px;
+      }
+
+      .skeleton-stack {
+        display: grid;
+        gap: var(--sp-xs);
+      }
+
+      .skeleton-line {
+        height: 12px;
+        background:
+          linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--surface-raised) 72%, var(--border)) 0%,
+            color-mix(in srgb, var(--surface-raised) 90%, var(--border)) 50%,
+            color-mix(in srgb, var(--surface-raised) 72%, var(--border)) 100%
+          );
+      }
+
+      .skeleton-line:nth-child(1) {
+        width: 72%;
+      }
+
+      .skeleton-line:nth-child(2) {
+        width: 94%;
+      }
+
+      .skeleton-line:nth-child(3) {
+        width: 61%;
+      }
+
+      .color-experiment__scales {
+        display: grid;
+        gap: var(--sp-lg);
+      }
+
+      .experiment-scale-card {
+        display: grid;
+        gap: var(--sp-md);
+        padding: var(--sp-md);
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+      }
+
+      .experiment-scale-card__header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: var(--sp-md);
+        flex-wrap: wrap;
+      }
+
+      .experiment-scale-card__header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .experiment-scale-card__grid {
+        display: grid;
+        gap: var(--sp-sm);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .experiment-swatch {
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface-raised);
+      }
+
+      .experiment-swatch__fill {
+        display: flex;
+        align-items: end;
+        min-height: 82px;
+        padding: var(--sp-sm);
+      }
+
+      .experiment-swatch__preview {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      .experiment-swatch__body {
+        display: grid;
+        gap: 4px;
+        padding: var(--sp-sm);
+      }
+
+      .experiment-swatch__token {
+        color: var(--text-primary);
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .experiment-swatch__value {
+        color: var(--text-secondary);
+        font-family: var(--font-mono);
+        font-size: 10.5px;
+        line-height: 1.45;
+      }
+
+      .color-experiment__css {
+        display: grid;
+        gap: var(--sp-sm);
+      }
+
+      .color-experiment__code {
+        margin: 0;
+        padding: var(--sp-lg);
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: var(--surface);
+        color: var(--text-primary);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.7;
+        white-space: pre;
+      }
+
+      @media (max-width: 1080px) {
+        .hero__grid,
+        .variation-grid,
+        .variation-frame__grid,
+        .variation-presentation__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero__metrics,
+        .principles-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .color-experiment__inputs {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .color-experiment__preset-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .experiment-scale-card__grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .experiment-preview-meta {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .pattern-card--wide,
+        .pattern-grid,
+        .pattern-state-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pattern-card--wide {
+          grid-column: span 1;
+        }
+
+        .pattern-kpis {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .pattern-split {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding: var(--sp-lg);
+          border-radius: 20px;
+        }
+
+        .hero__metrics,
+        .principles-grid,
+        .variation-grid,
+        .variation-presentation__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .color-experiment__inputs,
+        .experiment-scale-card__grid,
+        .experiment-preview-meta {
+          grid-template-columns: 1fr;
+        }
+
+        .experiment-preview-scope {
+          padding: var(--sp-lg);
+        }
+
+        .color-experiment__code {
+          white-space: pre-wrap;
+        }
+
+        .playground__row {
+          grid-template-columns: 1fr;
+        }
+
+        .pattern-kpis,
+        .form-grid,
+        .pattern-state-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .variation-list__row,
+        .pattern-card__head,
+        .pattern-panel__top,
+        .pattern-list__row,
+        .review-item,
+        .decision-item {
+          flex-direction: column;
+          align-items: start;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body,
+        .topbar,
+        .card,
+        .swatch,
+        .swatch .label,
+        .fill,
+        .btn,
+        .alert,
+        input[type="text"],
+        th,
+        td,
+        .sp-bar,
+        .control-chip,
+        .texture-card,
+        .texture-card__band,
+        .texture-chip,
+        .control-note {
+          transition-duration: 1ms;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <h1>ELECTION DATA · DESIGN SYSTEM v1.0</h1>
+      <button class="toggle" type="button" onclick="toggleTheme()" id="themeBtn">
+        Theme: Neutral (light) — click to cycle
+      </button>
+    </div>
+
+    <div class="wrap">
+      <section>
+        <div class="hero">
+          <div class="hero__grid">
+            <div>
+              <span class="hero__kicker">Warm-neutral civic interface system</span>
+              <h2>Quiet surfaces. Clear hierarchy. Strong operational focus.</h2>
+              <p class="hero__lede">
+                This document now represents the design system itself, not just isolated tokens.
+                The goal is a restrained interface language for election data products, dashboards,
+                briefings, and review tools: warm-neutral surfaces, charcoal typography, deliberate
+                accent usage, and repeatable interaction patterns that hold up under dense
+                information.
+              </p>
+              <div class="hero__actions">
+                <button class="btn btn-primary" type="button">Primary action model</button>
+                <button class="btn btn-secondary" type="button">Secondary control</button>
+                <span class="status-pill status-pill--success">Accessible by default</span>
+              </div>
+              <div class="hero__metrics" style="margin-top: 24px">
+                <div class="hero__metric">
+                  <span>Default surface direction</span>
+                  <strong>Warm beige</strong>
+                  <small>Calmer than stark white, still structured enough for data-heavy layouts.</small>
+                </div>
+                <div class="hero__metric">
+                  <span>Text behavior</span>
+                  <strong>Charcoal ink</strong>
+                  <small>Stable across all light themes so legibility does not drift with palette changes.</small>
+                </div>
+                <div class="hero__metric">
+                  <span>Interaction rule</span>
+                  <strong>One loud action</strong>
+                  <small>Primary emphasis is rare; everything else should support the decision path.</small>
+                </div>
+              </div>
+            </div>
+            <div class="hero__aside">
+              <div class="principles-grid">
+                <article class="principle-card">
+                  <span>Principle 01</span>
+                  <strong>Neutral before expressive</strong>
+                  <p>Most UI area belongs to surface, text, border, and spacing discipline, not brand color.</p>
+                </article>
+                <article class="principle-card">
+                  <span>Principle 02</span>
+                  <strong>Meaning before taste</strong>
+                  <p>Success, warning, and error should communicate state without becoming the text color.</p>
+                </article>
+                <article class="principle-card">
+                  <span>Principle 03</span>
+                  <strong>Reuse shells, not just tokens</strong>
+                  <p>Dashboards, queues, forms, and empty states should feel like one product family.</p>
+                </article>
+                <article class="principle-card">
+                  <span>Principle 04</span>
+                  <strong>Complexity is staged</strong>
+                  <p>Dense tables and review flows are fine, but the page should reveal them with hierarchy.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>System in use</h2>
+        <p class="section-intro">
+          Same design language, different real-world pressures. These variations show how the
+          system behaves across dense operational work, public-facing storytelling, mobile review,
+          and presentation surfaces without inventing a new visual language for each.
+        </p>
+        <div class="variation-grid">
+          <article class="variation-card">
+            <div class="variation-copy">
+              <span class="variation-label">Variation 01</span>
+              <h3>Operations command center</h3>
+              <p>Dense, stateful, and fast to scan. The system stays quiet so operational anomalies stand out.</p>
+            </div>
+            <div class="variation-frame">
+              <div class="variation-frame__grid">
+                <div class="variation-panel">
+                  <span class="variation-label">Live overview</span>
+                  <h4>Source reconciliation monitor</h4>
+                  <p>Three feeds are active. One state-level batch still needs operator review.</p>
+                  <div class="variation-bars" style="margin-top: 12px">
+                    <div class="variation-bar" style="--bar:78%"><i></i></div>
+                    <div class="variation-bar" style="--bar:54%"><i></i></div>
+                    <div class="variation-bar" style="--bar:86%"><i></i></div>
+                  </div>
+                </div>
+                <div class="variation-side">
+                  <div class="variation-stat">
+                    <span>Open issues</span>
+                    <strong>28</strong>
+                  </div>
+                  <div class="variation-stat">
+                    <span>Safe imports</span>
+                    <strong>91%</strong>
+                  </div>
+                  <span class="status-pill status-pill--warning">Needs review</span>
+                </div>
+              </div>
+            </div>
+            <p class="variation-note">
+              Use when speed and confidence matter more than charm. Fewer decorative moves, stronger information rhythm.
+            </p>
+          </article>
+
+          <article class="variation-card">
+            <div class="variation-copy">
+              <span class="variation-label">Variation 02</span>
+              <h3>Public explainer / editorial results page</h3>
+              <p>More narrative, but still built from the same surfaces, typography, badges, and action rules.</p>
+            </div>
+            <div class="variation-strip">
+              <span>Explainer layout</span>
+              <strong>Turnout shifted upward in urban constituencies</strong>
+              <p class="variation-note">
+                The system can soften into editorial mode without becoming lifestyle branding.
+              </p>
+              <div class="variation-tags" style="margin-top: 12px">
+                <span class="pattern-chip is-active">Summary</span>
+                <span class="pattern-chip">Map</span>
+                <span class="pattern-chip">Method</span>
+                <span class="status-pill status-pill--info">Reader-safe</span>
+              </div>
+            </div>
+            <div class="variation-list">
+              <div class="variation-list__row">
+                <div>
+                  <strong>Lead insight</strong>
+                  <p>Prime takeaway gets typographic priority, not just a louder color.</p>
+                </div>
+                <span class="status-pill status-pill--success">Clear</span>
+              </div>
+              <div class="variation-list__row">
+                <div>
+                  <strong>Method disclosure</strong>
+                  <p>Muted supporting text keeps trust details present without overpowering the read.</p>
+                </div>
+                <span class="status-pill status-pill--info">Method</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="variation-card">
+            <div class="variation-copy">
+              <span class="variation-label">Variation 03</span>
+              <h3>Mobile review workflow</h3>
+              <p>Same logic compressed for narrower screens: stronger stacking, fewer simultaneous decisions, clearer next step.</p>
+            </div>
+            <div class="variation-phone">
+              <div class="variation-phone__screen">
+                <span class="variation-label">Mobile operator flow</span>
+                <h4>Resolve import discrepancy</h4>
+                <p>One issue at a time. Context is summarized, then action options follow.</p>
+                <div class="variation-step">
+                  <span class="variation-step__num">1</span>
+                  <div>
+                    <strong>Review source labels</strong>
+                    <p class="variation-note">Check naming mismatch across two uploaded files.</p>
+                  </div>
+                </div>
+                <div class="variation-step">
+                  <span class="variation-step__num">2</span>
+                  <div>
+                    <strong>Choose resolution</strong>
+                    <p class="variation-note">Approve, flag, or escalate.</p>
+                  </div>
+                </div>
+                <div class="hero__actions">
+                  <button class="btn btn-primary" type="button">Approve</button>
+                  <button class="btn btn-secondary" type="button">Escalate</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="variation-card">
+            <div class="variation-copy">
+              <span class="variation-label">Variation 04</span>
+              <h3>Executive briefing / presentation frame</h3>
+              <p>Presentation mode should feel like the same system, not a separate theme with unrelated typography and colors.</p>
+            </div>
+            <div class="variation-presentation">
+              <div class="variation-presentation__head">
+                <div>
+                  <span class="variation-label">Briefing slide</span>
+                  <h4>National turnout pattern remains steady overall</h4>
+                </div>
+                <span class="status-pill status-pill--success">Board-ready</span>
+              </div>
+              <div class="variation-presentation__grid">
+                <div class="variation-stat">
+                  <span>Overall turnout</span>
+                  <strong>61.4%</strong>
+                </div>
+                <div class="variation-stat">
+                  <span>Largest delta</span>
+                  <strong>+4.8%</strong>
+                </div>
+                <div class="variation-stat">
+                  <span>Regions reviewed</span>
+                  <strong>28 / 28</strong>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Foundation colors</h2>
+        <p class="section-intro">
+          These are the foundational color families that carry the system. Neutrals and surfaces
+          do most of the work; accent and semantic hues are intentionally controlled.
+        </p>
+        <p class="lede">
+          Cool-neutral gray, not warm-cream — reads as institutional/data-grade rather than
+          lifestyle-brand. This is the majority of every screen; the accent should feel rare by
+          comparison.
+        </p>
+        <div class="grid cols-6" id="grayScale"></div>
+      </section>
+
+      <section>
+        <h2>Action + semantic color</h2>
+        <p class="lede">
+          <b>Deliberately not</b> saffron, green, or party-adjacent blue — this is an elections
+          tool, so the accent needs to read as neutral infrastructure, not political signal.
+          Semantic colors are muted, not flag-bright, for the same reason.
+        </p>
+        <div class="grid cols-4" id="accentScale"></div>
+      </section>
+
+      <section>
+        <h2>Charts + categorical cues</h2>
+        <p class="lede">
+          Colorblind-safe by construction (Okabe-Ito derived) — this row isn't a style choice,
+          it's the one place aesthetics take a back seat to accessibility science. Use in this
+          order; don't reach for red/green as a pair for meaning. Texture belongs on supporting
+          component surfaces like cards, labels, and legend keys, not inside dense charts.
+        </p>
+        <div class="grid cols-6" id="catScale"></div>
+      </section>
+
+      <section>
+        <h2>Texture + motion study</h2>
+        <p class="lede">
+          Use this area to audition accent directions without editing code and to see where
+          textured categorical treatments help. The default indigo system is still the best
+          baseline for civic data UI; the others are comparison studies.
+        </p>
+        <div class="card playground">
+          <div class="playground__row">
+            <div class="control-group">
+              <span class="control-label">Accent direction</span>
+              <div class="control-actions" id="accentControls"></div>
+              <p class="control-note" id="accentNote"></p>
+            </div>
+            <div class="control-group">
+              <span class="control-label">Texture strength</span>
+              <div class="control-actions" id="textureControls"></div>
+              <p class="control-note">
+                Keep texture subtle. It should help category recall, not become the content.
+              </p>
+            </div>
+          </div>
+          <div class="playground__row playground__row--stack">
+            <div class="motion-row">
+              <button class="btn btn-secondary" id="motionBtn" type="button" onclick="toggleAccentMotion()">
+                Run color motion
+              </button>
+              <p class="control-note">
+                Cycles accent presets so you can judge transition feel across buttons, focus rings,
+                spacing bars, and active controls.
+              </p>
+            </div>
+            <div class="grid cols-3 texture-grid">
+              <article class="card texture-card" data-series="1" data-pattern="stripes">
+                <div class="texture-card__band"></div>
+                <div class="texture-card__meta">
+                  <span class="texture-chip">Series 1</span>
+                  <span class="texture-card__pattern">Header band</span>
+                </div>
+                <h3 class="texture-card__title">Lead summary card</h3>
+                <p class="rule">
+                  Use a textured category band when the card needs to stay tied to a chart or map
+                  series across the page.
+                </p>
+              </article>
+              <article class="card texture-card" data-series="3" data-pattern="dots">
+                <div class="texture-card__band"></div>
+                <div class="texture-card__meta">
+                  <span class="texture-chip">Series 3</span>
+                  <span class="texture-card__pattern">Legend carry-over</span>
+                </div>
+                <h3 class="texture-card__title">Filter state card</h3>
+                <p class="rule">
+                  Dot texture works well when the chart already uses the same series and the card
+                  needs a quieter but still distinct surface cue.
+                </p>
+              </article>
+              <article class="card texture-card" data-series="5" data-pattern="grid">
+                <div class="texture-card__band"></div>
+                <div class="texture-card__meta">
+                  <span class="texture-chip">Series 5</span>
+                  <span class="texture-card__pattern">Comparison block</span>
+                </div>
+                <h3 class="texture-card__title">Cross-source comparison</h3>
+                <p class="rule">
+                  Grid texture is best on secondary comparison cards where you need distinction but
+                  still want the content body to remain calm.
+                </p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Token generator</h2>
+        <p class="lede">
+          Enter colors as HEX, RGB, or HSL, and this block will anchor each chosen color as the
+          `500` token, then generate lighter `50-400` and darker `600-900` shades around it.
+          Everything stays scoped to this section so you can merge it into another HTML file
+          cleanly.
+        </p>
+        <div class="card color-experiment" id="colorExperimentScope">
+          <div class="color-experiment__toolbar">
+            <div class="control-group">
+              <span class="control-label">Accepted formats</span>
+              <p class="control-note">
+                Examples: `#3554d1`, `rgb(53 84 209)`, `hsl(228 64% 51%)`
+              </p>
+            </div>
+            <div class="color-experiment__toolbar-actions">
+              <button class="btn btn-secondary" id="applyExperimentDocumentBtn" type="button" onclick="toggleExperimentDocumentApply()">
+                Page palette: On
+              </button>
+              <button class="btn btn-secondary" id="copyCssVariablesBtn" type="button" onclick="copyExperimentCss()">
+                Copy CSS Variables
+              </button>
+            </div>
+          </div>
+          <p class="color-experiment__apply-note" id="colorExperimentApplyNote">
+            Experiment colors are currently applied to the whole document.
+          </p>
+
+          <div class="color-experiment__presets">
+            <span class="control-label">Warm-neutral palette presets</span>
+            <p class="control-note" id="colorExperimentPresetNote">
+              Four curated directions built to land on warm white, warm ivory, or warm beige
+              surfaces, with darker sage success, mustard-apricot warning, and terracotta-ruby
+              error accents.
+            </p>
+            <div class="color-experiment__preset-grid" id="colorExperimentPresets"></div>
+          </div>
+
+          <div class="color-experiment__inputs" id="colorExperimentInputs"></div>
+          <p class="color-experiment__copy-status" id="copyCssVariablesStatus" aria-live="polite"></p>
+
+          <div class="color-experiment__preview-shell">
+            <div class="experiment-preview-scope">
+              <div class="experiment-preview-meta">
+                <div>
+                  <span>Page background</span>
+                  <strong>surface-50</strong>
+                </div>
+                <div>
+                  <span>Card / border</span>
+                  <strong>surface-100 + neutral-200</strong>
+                </div>
+                <div>
+                  <span>Headings / body</span>
+                  <strong>neutral-900 + neutral-800</strong>
+                </div>
+                <div>
+                  <span>Links / buttons</span>
+                  <strong>accent-700 + primary-700</strong>
+                </div>
+              </div>
+
+              <article class="experiment-preview-card">
+                <p class="experiment-preview-card__eyebrow">Live token preview</p>
+                <h3 class="experiment-preview-card__title">Constituency results overview</h3>
+                <p class="experiment-preview-card__body">
+                  This is body text using the generated neutral scale. The link color is driven by
+                  the accent scale, so you can test whether <a href="/">interactive emphasis</a>
+                  feels sharp enough without taking over the page.
+                </p>
+                <p class="experiment-preview-card__muted">
+                  Muted text should still read clearly on the selected surface background, and
+                  semantic badges keep stable ink so status hue does not break legibility.
+                </p>
+                <div class="experiment-preview-actions">
+                  <button class="experiment-preview-button experiment-preview-button--primary" type="button">
+                    Publish update
+                  </button>
+                  <button class="experiment-preview-button experiment-preview-button--secondary" type="button">
+                    Review draft
+                  </button>
+                </div>
+                <div class="experiment-preview-badges">
+                  <span class="experiment-preview-badge experiment-preview-badge--success">Verified</span>
+                  <span class="experiment-preview-badge experiment-preview-badge--warning">Needs review</span>
+                  <span class="experiment-preview-badge experiment-preview-badge--error">Data mismatch</span>
+                  <span class="experiment-preview-badge experiment-preview-badge--info">API synced</span>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="color-experiment__scales" id="colorExperimentScales"></div>
+
+          <div class="color-experiment__css">
+            <span class="control-label">Generated CSS Variables</span>
+            <pre class="color-experiment__code" id="colorExperimentCss"></pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Type scale</h2>
+        <p class="lede">
+          <b>IBM Plex Sans</b> for UI, <b>IBM Plex Mono</b> for data/figures (tabular numerals
+          matter on a numbers-heavy dashboard). Plex has a Devanagari companion cut — if you add
+          Hindi/regional labels later, it pairs natively without a jarring font swap.
+        </p>
+        <div id="typeScale"></div>
+      </section>
+
+      <section>
+        <h2>Spacing — 8pt grid</h2>
+        <p class="lede">
+          This is the part you can stop thinking about. Pick from this list only; never a one-off
+          pixel value.
+        </p>
+        <div id="spacingScale"></div>
+      </section>
+
+      <section>
+        <h2>Radius &amp; elevation</h2>
+        <div class="grid cols-3">
+          <div class="card" style="border-radius: var(--r-sm)">
+            <span class="rule"><b>6px</b> — inputs, chips, small controls</span>
+          </div>
+          <div class="card" style="border-radius: var(--r-md)">
+            <span class="rule"><b>10px</b> — buttons, table cards, alerts</span>
+          </div>
+          <div class="card" style="border-radius: var(--r-lg)">
+            <span class="rule"><b>16px</b> — panels, modals, page-level cards</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Components</h2>
+        <div class="card" style="margin-bottom: 16px">
+          <p class="rule" style="margin-top: 0">
+            <b>Buttons</b> — one filled primary per screen max. Focus ring is always visible on
+            keyboard nav, never color-only.
+          </p>
+          <button class="btn btn-primary" type="button">Save changes</button>
+          <button class="btn btn-secondary" type="button">Cancel</button>
+          <button class="btn btn-disabled" type="button" disabled>Unavailable</button>
+        </div>
+        <div class="card" style="margin-bottom: 16px">
+          <p class="rule" style="margin-top: 0">
+            <b>Alerts</b> — muted fills, colored text/border only, never a solid color block.
+          </p>
+          <div class="alert success">Data source verified against ECI records.</div>
+          <div class="alert warning">Last synced 6 hours ago — refresh recommended.</div>
+          <div class="alert error">Constituency ID not found in this dataset.</div>
+        </div>
+        <div class="card" style="margin-bottom: 16px">
+          <p class="rule" style="margin-top: 0">
+            <b>Input</b> — try tabbing to it to see the focus ring.
+          </p>
+          <input type="text" placeholder="Search constituency, candidate, or state" />
+        </div>
+        <div class="card">
+          <p class="rule" style="margin-top: 0">
+            <b>Data table</b> — numerals right-aligned in mono with tabular figures, so digits
+            line up column to column.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Constituency</th>
+                <th>State</th>
+                <th>Turnout</th>
+                <th>Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Varanasi</td>
+                <td>Uttar Pradesh</td>
+                <td class="num">57.3%</td>
+                <td class="num">1,52,513</td>
+              </tr>
+              <tr>
+                <td>Bangalore South</td>
+                <td>Karnataka</td>
+                <td class="num">54.1%</td>
+                <td class="num">98,207</td>
+              </tr>
+              <tr>
+                <td>Thiruvananthapuram</td>
+                <td>Kerala</td>
+                <td class="num">65.9%</td>
+                <td class="num">1,04,668</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>Product patterns</h2>
+        <p class="lede">
+          These are the major reusable HTML patterns worth standardizing next. Tokens alone do not
+          save time; repeatable shells for overview, review, forms, and state handling do.
+        </p>
+        <div class="pattern-grid">
+          <article class="pattern-card pattern-card--wide">
+            <div class="pattern-card__head">
+              <div>
+                <h3>Overview dashboard shell</h3>
+                <p>Use this when the user needs summary, filters, and drill-down without losing context.</p>
+              </div>
+              <span class="status-pill status-pill--info">High reuse</span>
+            </div>
+            <div class="pattern-kpis">
+              <div class="pattern-kpi">
+                <span>Total seats tracked</span>
+                <strong>543</strong>
+                <small>All constituencies mapped</small>
+              </div>
+              <div class="pattern-kpi">
+                <span>Verified sources</span>
+                <strong>91%</strong>
+                <small>Across latest import batch</small>
+              </div>
+              <div class="pattern-kpi">
+                <span>Open discrepancies</span>
+                <strong>28</strong>
+                <small>Need operator review</small>
+              </div>
+              <div class="pattern-kpi">
+                <span>Sync latency</span>
+                <strong>14m</strong>
+                <small>From last upstream pull</small>
+              </div>
+            </div>
+            <div class="pattern-toolbar">
+              <span class="pattern-chip is-active">General election</span>
+              <span class="pattern-chip">State assembly</span>
+              <span class="pattern-chip">Turnout only</span>
+              <input class="pattern-search" type="text" value="Search state, seat, or candidate" />
+            </div>
+            <div class="pattern-split">
+              <div class="pattern-panel">
+                <div class="pattern-panel__top">
+                  <strong>Turnout trend snapshot</strong>
+                  <a href="/">Open detail</a>
+                </div>
+                <div class="pattern-bars">
+                  <div class="pattern-bar">
+                    <div class="pattern-bar__meta">
+                      <span>Uttar Pradesh</span>
+                      <span>61%</span>
+                    </div>
+                    <div class="pattern-bar__track"><div class="pattern-bar__fill" style="--bar:61%"></div></div>
+                  </div>
+                  <div class="pattern-bar">
+                    <div class="pattern-bar__meta">
+                      <span>Maharashtra</span>
+                      <span>58%</span>
+                    </div>
+                    <div class="pattern-bar__track"><div class="pattern-bar__fill" style="--bar:58%"></div></div>
+                  </div>
+                  <div class="pattern-bar">
+                    <div class="pattern-bar__meta">
+                      <span>Tamil Nadu</span>
+                      <span>69%</span>
+                    </div>
+                    <div class="pattern-bar__track"><div class="pattern-bar__fill" style="--bar:69%"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="pattern-panel">
+                <span class="pattern-panel__eyebrow">Insight rail</span>
+                <div class="pattern-list">
+                  <div class="pattern-list__row">
+                    <div>
+                      <strong>High-value anomaly</strong>
+                      <p>Five seats changed turnout band after OCR reconciliation.</p>
+                    </div>
+                    <span class="status-pill status-pill--warning">Review</span>
+                  </div>
+                  <div class="pattern-list__row">
+                    <div>
+                      <strong>Stable import</strong>
+                      <p>API and manual upload agree for Karnataka batch.</p>
+                    </div>
+                    <span class="status-pill status-pill--success">Verified</span>
+                  </div>
+                  <div class="pattern-list__row">
+                    <div>
+                      <strong>Editorial note</strong>
+                      <p>Keep one dominant action and avoid stacking five alerts at top of page.</p>
+                    </div>
+                    <span class="status-pill status-pill--info">Guidance</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="pattern-card">
+            <div class="pattern-card__head">
+              <div>
+                <h3>Review queue</h3>
+                <p>For audit tables, moderation lists, and operator triage.</p>
+              </div>
+              <span class="status-pill status-pill--warning">Operator flow</span>
+            </div>
+            <div class="review-list">
+              <div class="review-item">
+                <div>
+                  <strong>Constituency name mismatch</strong>
+                  <p>Spellings differ between PDF source and CSV import.</p>
+                </div>
+                <div class="review-item__meta">
+                  <span>2 min ago</span>
+                  <span class="status-pill status-pill--warning">Needs review</span>
+                </div>
+              </div>
+              <div class="review-item">
+                <div>
+                  <strong>Turnout source confirmed</strong>
+                  <p>Manual cross-check completed against official release.</p>
+                </div>
+                <div class="review-item__meta">
+                  <span>12 min ago</span>
+                  <span class="status-pill status-pill--success">Ready</span>
+                </div>
+              </div>
+              <div class="review-item">
+                <div>
+                  <strong>Missing booth summary</strong>
+                  <p>Supplementary PDF not yet attached to the constituency record.</p>
+                </div>
+                <div class="review-item__meta">
+                  <span>24 min ago</span>
+                  <span class="status-pill status-pill--error">Blocked</span>
+                </div>
+              </div>
+            </div>
+            <p class="pattern-note">
+              Pattern rule: keep list rows scannable first, then let the side detail view carry the complexity.
+            </p>
+          </article>
+
+          <article class="pattern-card">
+            <div class="pattern-card__head">
+              <div>
+                <h3>Setup and form workflow</h3>
+                <p>For onboarding, filters, exports, or configuration screens.</p>
+              </div>
+              <span class="status-pill status-pill--success">Structured flow</span>
+            </div>
+            <div class="stepper">
+              <span class="step is-active"><span class="step__index">1</span> Source</span>
+              <span class="step"><span class="step__index">2</span> Mapping</span>
+              <span class="step"><span class="step__index">3</span> Review</span>
+            </div>
+            <div class="form-grid">
+              <div class="field">
+                <label>Dataset label</label>
+                <input type="text" value="Lok Sabha turnout import" />
+                <p class="field-help">Use a human-readable name so operators can find it later.</p>
+              </div>
+              <div class="field">
+                <label>Source type</label>
+                <input type="text" value="Official CSV" />
+                <p class="field-help">One control family per row keeps data-entry rhythm predictable.</p>
+              </div>
+              <div class="field field--full">
+                <label>Validation rule</label>
+                <input type="text" value="Margin must be lower than total valid votes" />
+                <p class="field-help is-error">Show error text only when the user can act on it immediately.</p>
+              </div>
+            </div>
+            <div class="pattern-actions">
+              <button class="btn btn-primary" type="button">Continue</button>
+              <button class="btn btn-secondary" type="button">Save draft</button>
+            </div>
+          </article>
+
+          <article class="pattern-card pattern-card--wide">
+            <div class="pattern-card__head">
+              <div>
+                <h3>System states and decision support</h3>
+                <p>Every serious product needs deliberate empty, loading, and resolution states.</p>
+              </div>
+              <span class="status-pill status-pill--info">UX baseline</span>
+            </div>
+            <div class="pattern-state-grid">
+              <div class="pattern-state">
+                <span class="pattern-panel__eyebrow">Empty state</span>
+                <h4>No filtered results</h4>
+                <p>Explain what happened, preserve the user context, and offer one obvious next move.</p>
+                <div class="pattern-actions" style="margin-top: 12px">
+                  <button class="btn btn-secondary" type="button">Clear filters</button>
+                </div>
+              </div>
+              <div class="pattern-state">
+                <span class="pattern-panel__eyebrow">Loading state</span>
+                <div class="skeleton-stack">
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line"></div>
+                  <div class="skeleton-line"></div>
+                </div>
+                <p style="margin-top: 12px">Use skeletons only where layout stability matters more than raw speed cues.</p>
+              </div>
+              <div class="pattern-state">
+                <span class="pattern-panel__eyebrow">Decision support</span>
+                <div class="decision-list">
+                  <div class="decision-item">
+                    <div>
+                      <strong>Approve import</strong>
+                      <p>All mandatory fields mapped and no blocking discrepancies remain.</p>
+                    </div>
+                    <span class="status-pill status-pill--success">Safe</span>
+                  </div>
+                  <div class="decision-item">
+                    <div>
+                      <strong>Escalate mismatch</strong>
+                      <p>Candidate totals differ across two trusted sources.</p>
+                    </div>
+                    <span class="status-pill status-pill--error">Escalate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const themeOrder = [
+        ["light", "Theme: Neutral (light) — click to cycle"],
+        ["dark", "Theme: Neutral (dark) — click to cycle"],
+        ["cream", "Theme: Warm cream + terracotta (cliche comparison) — click to cycle"],
+      ];
+
+      const accentPresets = [
+        {
+          id: "indigo",
+          label: "Indigo",
+          swatch: "#3554D1",
+          note: "Best default for civic and data-heavy UI: neutral, institutional, and legible.",
+        },
+        {
+          id: "teal",
+          label: "Teal",
+          swatch: "#217B92",
+          note: "Cooler and more operational. Useful if you want the system to feel less editorial.",
+        },
+        {
+          id: "slate",
+          label: "Slate",
+          swatch: "#576A9B",
+          note: "More conservative and subdued. Good when the product tone needs to stay quiet.",
+        },
+        {
+          id: "copper",
+          label: "Copper",
+          swatch: "#995C34",
+          note: "Warmer comparison only. It reads more human, but it is less politically neutral.",
+        },
+      ];
+
+      const textureModes = [
+        ["flat", "Flat"],
+        ["subtle", "Subtle"],
+        ["bold", "Bold"],
+      ];
+
+      const seriesPatterns = [
+        ["stripes", "Stripes"],
+        ["dots", "Dots"],
+        ["grid", "Grid"],
+        ["rails", "Rails"],
+        ["steps", "Steps"],
+        ["weave", "Weave"],
+      ];
+
+      const experimentShadeSteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+      const experimentLightMix = { 50: 0.96, 100: 0.84, 200: 0.66, 300: 0.46, 400: 0.22 };
+      const experimentDarkMix = { 600: 0.18, 700: 0.34, 800: 0.5, 900: 0.68 };
+      const experimentFamilySettings = {
+        primary: { lightCeiling: 97, darkFloor: 12, lightSatDrop: 0.18, darkSatBoost: 0.14, minSat: 8 },
+        neutral: { lightCeiling: 99, darkFloor: 10, lightSatDrop: 0.55, darkSatBoost: -0.06, minSat: 2 },
+        surface: { lightCeiling: 99, darkFloor: 14, lightSatDrop: 0.32, darkSatBoost: -0.04, minSat: 4 },
+        accent: { lightCeiling: 98, darkFloor: 12, lightSatDrop: 0.16, darkSatBoost: 0.12, minSat: 8 },
+      };
+
+      const experimentColorConfigs = [
+        {
+          key: "primary",
+          label: "Primary",
+          defaultValue: "#C86E47",
+          description: "Main action family. Generates a 50-900 scale.",
+          scale: true,
+        },
+        {
+          key: "neutral",
+          label: "Neutral",
+          defaultValue: "#897C71",
+          description: "Text, borders, and UI scaffolding. Generates a 50-900 scale.",
+          scale: true,
+        },
+        {
+          key: "surface",
+          label: "Surface / secondary",
+          defaultValue: "#C9B7A5",
+          description: "Page and card surfaces. Generates a 50-900 scale.",
+          scale: true,
+        },
+        {
+          key: "accent",
+          label: "Brand accent",
+          defaultValue: "#6B4A32",
+          description: "Links and supporting emphasis. Generates a 50-900 scale.",
+          scale: true,
+        },
+        {
+          key: "success",
+          label: "Success",
+          defaultValue: "#78D98A",
+          description: "Single semantic token for positive states.",
+          scale: false,
+        },
+        {
+          key: "warning",
+          label: "Warning",
+          defaultValue: "#FFC857",
+          description: "Single semantic token for caution states.",
+          scale: false,
+        },
+        {
+          key: "error",
+          label: "Error",
+          defaultValue: "#FF4B57",
+          description: "Single semantic token for destructive states.",
+          scale: false,
+        },
+        {
+          key: "info",
+          label: "Info",
+          defaultValue: "#6EC5FF",
+          description: "Single semantic token for informational states.",
+          scale: false,
+        },
+      ];
+
+      const experimentPalettePresets = [
+        {
+          id: "final-warm-neutral",
+          name: "Final Warm Neutral",
+          note: "Your finalized warm-neutral system: terracotta primary, bark accent, sage success, mustard warning, and terracotta-ruby error.",
+          values: {
+            primary: "#C86E47",
+            neutral: "#897C71",
+            surface: "#C9B7A5",
+            accent: "#6B4A32",
+            success: "#78D98A",
+            warning: "#FFC857",
+            error: "#FF4B57",
+            info: "#6EC5FF",
+          },
+        },
+        {
+          id: "ivory-grove",
+          name: "Ivory Grove",
+          note: "Warm ivory balance with a muted plum accent and deeper sage semantic range.",
+          values: {
+            primary: "#705E49",
+            neutral: "#85796B",
+            surface: "#D8CCBE",
+            accent: "#7A6887",
+            success: "#78D98A",
+            warning: "#FFC857",
+            error: "#FF4B57",
+            info: "#6EC5FF",
+          },
+        },
+        {
+          id: "beige-atelier",
+          name: "Beige Atelier",
+          note: "Warmer beige body with a calm teal accent that still feels editorially disciplined.",
+          values: {
+            primary: "#7A614B",
+            neutral: "#897C71",
+            surface: "#C9B7A5",
+            accent: "#4F7E7B",
+            success: "#78D98A",
+            warning: "#FFC857",
+            error: "#FF4B57",
+            info: "#6EC5FF",
+          },
+        },
+        {
+          id: "linen-current",
+          name: "Linen Current",
+          note: "Linen-leaning warm white with a cooler slate-blue accent for higher contrast UI.",
+          values: {
+            primary: "#55616A",
+            neutral: "#756D65",
+            surface: "#D4C8BB",
+            accent: "#5E789F",
+            success: "#78D98A",
+            warning: "#FFC857",
+            error: "#FF4B57",
+            info: "#6EC5FF",
+          },
+        },
+      ];
+
+      const experimentScaleFamilies = experimentColorConfigs.filter((config) => config.scale);
+      const experimentSemanticFamilies = experimentColorConfigs.filter((config) => !config.scale);
+      const experimentState = {};
+      let experimentColorProbe = null;
+      let copyStatusTimer = null;
+      let activeExperimentPresetId = experimentPalettePresets[0].id;
+      let experimentApplyToDocument = true;
+
+      let themeIdx = 0;
+      let accentIdx = 0;
+      let motionTimer = null;
+
+      function applyTheme(index) {
+        const [value, label] = themeOrder[index];
+        document.documentElement.setAttribute("data-theme", value);
+        document.getElementById("themeBtn").textContent = label;
+
+        if (experimentColorProbe) {
+          updateColorExperiment();
+        }
+      }
+
+      function toggleTheme() {
+        themeIdx = (themeIdx + 1) % themeOrder.length;
+        applyTheme(themeIdx);
+      }
+
+      function applyAccentPreset(id) {
+        const presetIndex = accentPresets.findIndex((preset) => preset.id === id);
+        if (presetIndex === -1) {
+          return;
+        }
+
+        accentIdx = presetIndex;
+        document.documentElement.setAttribute("data-accent", accentPresets[presetIndex].id);
+        renderAccentControls();
+      }
+
+      function renderAccentControls() {
+        const accentControls = document.getElementById("accentControls");
+        const accentNote = document.getElementById("accentNote");
+
+        accentControls.innerHTML = accentPresets
+          .map(
+            (preset) => `
+              <button
+                class="control-chip ${preset.id === accentPresets[accentIdx].id ? "is-active" : ""}"
+                type="button"
+                onclick="applyAccentPreset('${preset.id}')"
+              >
+                <span class="control-chip__swatch" style="background:${preset.swatch}"></span>
+                ${preset.label}
+              </button>`,
+          )
+          .join("");
+
+        accentNote.textContent = accentPresets[accentIdx].note;
+      }
+
+      function setTextureMode(mode) {
+        document.documentElement.setAttribute("data-texture-mode", mode);
+        renderTextureControls();
+      }
+
+      function renderTextureControls() {
+        const activeMode = document.documentElement.getAttribute("data-texture-mode");
+
+        document.getElementById("textureControls").innerHTML = textureModes
+          .map(
+            ([mode, label]) => `
+              <button
+                class="control-chip ${mode === activeMode ? "is-active" : ""}"
+                type="button"
+                onclick="setTextureMode('${mode}')"
+              >
+                ${label}
+              </button>`,
+          )
+          .join("");
+      }
+
+      function updateMotionButton() {
+        const motionBtn = document.getElementById("motionBtn");
+        motionBtn.textContent = motionTimer ? "Stop color motion" : "Run color motion";
+      }
+
+      function stopAccentMotion() {
+        if (motionTimer) {
+          window.clearInterval(motionTimer);
+          motionTimer = null;
+          updateMotionButton();
+        }
+      }
+
+      function toggleAccentMotion() {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          applyAccentPreset(accentPresets[(accentIdx + 1) % accentPresets.length].id);
+          return;
+        }
+
+        if (motionTimer) {
+          stopAccentMotion();
+          return;
+        }
+
+        motionTimer = window.setInterval(() => {
+          const nextIndex = (accentIdx + 1) % accentPresets.length;
+          applyAccentPreset(accentPresets[nextIndex].id);
+        }, 1200);
+
+        updateMotionButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function normalizeHue(value) {
+        return ((value % 360) + 360) % 360;
+      }
+
+      function mixToward(current, target, amount) {
+        return current + (target - current) * amount;
+      }
+
+      function rgbToHex(r, g, b) {
+        return `#${[r, g, b]
+          .map((channel) => Math.round(channel).toString(16).padStart(2, "0").toUpperCase())
+          .join("")}`;
+      }
+
+      function formatRgb(rgb) {
+        return `rgb(${rgb.map((channel) => Math.round(channel)).join(" ")})`;
+      }
+
+      function formatHsl(hsl) {
+        return `hsl(${Math.round(hsl[0])} ${Math.round(hsl[1])}% ${Math.round(hsl[2])}%)`;
+      }
+
+      function rgbToHsl(r, g, b) {
+        const red = r / 255;
+        const green = g / 255;
+        const blue = b / 255;
+        const max = Math.max(red, green, blue);
+        const min = Math.min(red, green, blue);
+        const delta = max - min;
+        const lightness = (max + min) / 2;
+        let hue = 0;
+        let saturation = 0;
+
+        if (delta !== 0) {
+          saturation = delta / (1 - Math.abs(2 * lightness - 1));
+
+          switch (max) {
+            case red:
+              hue = 60 * (((green - blue) / delta) % 6);
+              break;
+            case green:
+              hue = 60 * ((blue - red) / delta + 2);
+              break;
+            default:
+              hue = 60 * ((red - green) / delta + 4);
+              break;
+          }
+        }
+
+        return [normalizeHue(hue), saturation * 100, lightness * 100];
+      }
+
+      function hslToRgb(h, s, l) {
+        const hue = normalizeHue(h);
+        const saturation = clamp(s, 0, 100) / 100;
+        const lightness = clamp(l, 0, 100) / 100;
+        const chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
+        const segment = hue / 60;
+        const x = chroma * (1 - Math.abs((segment % 2) - 1));
+        const match = lightness - chroma / 2;
+        let red = 0;
+        let green = 0;
+        let blue = 0;
+
+        if (segment >= 0 && segment < 1) {
+          red = chroma;
+          green = x;
+        } else if (segment >= 1 && segment < 2) {
+          red = x;
+          green = chroma;
+        } else if (segment >= 2 && segment < 3) {
+          green = chroma;
+          blue = x;
+        } else if (segment >= 3 && segment < 4) {
+          green = x;
+          blue = chroma;
+        } else if (segment >= 4 && segment < 5) {
+          red = x;
+          blue = chroma;
+        } else {
+          red = chroma;
+          blue = x;
+        }
+
+        return [
+          Math.round((red + match) * 255),
+          Math.round((green + match) * 255),
+          Math.round((blue + match) * 255),
+        ];
+      }
+
+      function createColorRecordFromHsl(hsl) {
+        const normalized = [normalizeHue(hsl[0]), clamp(hsl[1], 0, 100), clamp(hsl[2], 0, 100)];
+        const rgb = hslToRgb(normalized[0], normalized[1], normalized[2]);
+
+        return {
+          hsl: normalized,
+          rgb,
+          hex: rgbToHex(rgb[0], rgb[1], rgb[2]),
+          rgbText: formatRgb(rgb),
+          hslText: formatHsl(normalized),
+        };
+      }
+
+      function parseColorInput(rawValue) {
+        const value = rawValue.trim();
+
+        if (!value || !experimentColorProbe) {
+          return null;
+        }
+
+        experimentColorProbe.style.color = "";
+        experimentColorProbe.style.color = value;
+
+        if (!experimentColorProbe.style.color) {
+          return null;
+        }
+
+        const computed = window.getComputedStyle(experimentColorProbe).color;
+        const channels = computed.match(/[\d.]+/g);
+
+        if (!channels || channels.length < 3) {
+          return null;
+        }
+
+        const rgb = channels.slice(0, 3).map(Number);
+        const hsl = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+
+        return createColorRecordFromHsl(hsl);
+      }
+
+      function getReadableTextColor(rgb) {
+        const luminance = rgb
+          .map((channel) => {
+            const value = channel / 255;
+            return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+          })
+          .reduce((total, value, index) => total + value * [0.2126, 0.7152, 0.0722][index], 0);
+
+        return luminance > 0.34 ? "#111111" : "#FFFFFF";
+      }
+
+      // The selected color stays fixed as the 500 anchor.
+      // Lighter shades move its HSL lightness toward a high ceiling; darker shades pull it toward a low floor.
+      // Saturation is softened on light tints and slightly reinforced on dark tones so the scale stays usable.
+      function generateShadeFromAnchor(baseRecord, family, shade) {
+        if (shade === 500) {
+          return { shade, ...baseRecord };
+        }
+
+        const settings = experimentFamilySettings[family];
+        const [hue, saturation, lightness] = baseRecord.hsl;
+        let nextSaturation = saturation;
+        let nextLightness = lightness;
+
+        if (shade < 500) {
+          const mix = experimentLightMix[shade];
+          nextLightness = mixToward(lightness, settings.lightCeiling, mix);
+          nextSaturation = saturation - saturation * settings.lightSatDrop * mix;
+        } else {
+          const mix = experimentDarkMix[shade];
+          nextLightness = mixToward(lightness, settings.darkFloor, mix);
+          nextSaturation =
+            settings.darkSatBoost >= 0
+              ? saturation + (100 - saturation) * settings.darkSatBoost * mix
+              : saturation + saturation * settings.darkSatBoost * mix;
+        }
+
+        const shadeRecord = createColorRecordFromHsl([
+          hue,
+          clamp(nextSaturation, settings.minSat, 98),
+          clamp(nextLightness, 4, 99),
+        ]);
+
+        return { shade, ...shadeRecord };
+      }
+
+      function generateScaleFromAnchor(baseRecord, family) {
+        return experimentShadeSteps.map((shade) => generateShadeFromAnchor(baseRecord, family, shade));
+      }
+
+      function renderColorExperimentInputs() {
+        const host = document.getElementById("colorExperimentInputs");
+
+        host.innerHTML = experimentColorConfigs
+          .map(
+            (config) => `
+              <div class="experiment-input-card" id="experimentCard-${config.key}">
+                <div class="experiment-input-card__header">
+                  <p class="experiment-input-card__title">${config.label}</p>
+                  <span class="experiment-input-card__swatch" id="experimentSwatch-${config.key}"></span>
+                </div>
+                <input
+                  class="experiment-input-card__field"
+                  id="experimentInput-${config.key}"
+                  type="text"
+                  spellcheck="false"
+                  autocomplete="off"
+                  placeholder="${config.defaultValue}"
+                />
+                <div class="experiment-input-card__values">
+                  <span class="experiment-input-card__value" id="experimentHex-${config.key}"></span>
+                  <span class="experiment-input-card__value" id="experimentRgb-${config.key}"></span>
+                  <span class="experiment-input-card__value" id="experimentHsl-${config.key}"></span>
+                </div>
+                <p class="experiment-input-card__message" id="experimentMessage-${config.key}"></p>
+              </div>`,
+          )
+          .join("");
+
+        experimentColorConfigs.forEach((config) => {
+          const input = document.getElementById(`experimentInput-${config.key}`);
+          input.value = experimentState[config.key].raw;
+          input.addEventListener("input", () => updateExperimentColor(config.key, input.value));
+        });
+
+        refreshColorExperimentInputs();
+      }
+
+      function renderColorExperimentPresets() {
+        const host = document.getElementById("colorExperimentPresets");
+        const note = document.getElementById("colorExperimentPresetNote");
+        const activePreset = experimentPalettePresets.find((preset) => preset.id === activeExperimentPresetId);
+
+        host.innerHTML = experimentPalettePresets
+          .map((preset) => `
+            <button
+              class="preset-chip ${preset.id === activeExperimentPresetId ? "is-active" : ""}"
+              type="button"
+              onclick="applyExperimentPreset('${preset.id}')"
+            >
+              <div class="preset-chip__top">
+                <p class="preset-chip__name">${preset.name}</p>
+                <div class="preset-chip__swatches">
+                  <span class="preset-chip__swatch" style="background:${preset.values.surface}"></span>
+                  <span class="preset-chip__swatch" style="background:${preset.values.accent}"></span>
+                  <span class="preset-chip__swatch" style="background:${preset.values.success}"></span>
+                  <span class="preset-chip__swatch" style="background:${preset.values.warning}"></span>
+                  <span class="preset-chip__swatch" style="background:${preset.values.error}"></span>
+                </div>
+              </div>
+              <p class="preset-chip__meta">${preset.note}</p>
+            </button>`)
+          .join("");
+
+        if (activePreset) {
+          note.textContent = activePreset.note;
+        }
+      }
+
+      function renderExperimentDocumentApplyToggle() {
+        const button = document.getElementById("applyExperimentDocumentBtn");
+        const note = document.getElementById("colorExperimentApplyNote");
+
+        button.textContent = experimentApplyToDocument ? "Page palette: On" : "Page palette: Off";
+        note.textContent = experimentApplyToDocument
+          ? "Experiment colors are currently applied to the whole document."
+          : "Experiment colors are currently limited to the preview block only.";
+      }
+
+      function refreshColorExperimentInputs() {
+        experimentColorConfigs.forEach((config) => {
+          const fieldState = experimentState[config.key];
+          const card = document.getElementById(`experimentCard-${config.key}`);
+          const swatch = document.getElementById(`experimentSwatch-${config.key}`);
+          const hex = document.getElementById(`experimentHex-${config.key}`);
+          const rgb = document.getElementById(`experimentRgb-${config.key}`);
+          const hsl = document.getElementById(`experimentHsl-${config.key}`);
+          const message = document.getElementById(`experimentMessage-${config.key}`);
+
+          card.classList.toggle("is-invalid", !fieldState.valid);
+          swatch.style.background = fieldState.parsed.hex;
+          hex.textContent = `HEX  ${fieldState.parsed.hex}`;
+          rgb.textContent = `RGB  ${fieldState.parsed.rgbText}`;
+          hsl.textContent = `HSL  ${fieldState.parsed.hslText}`;
+          message.textContent = fieldState.valid
+            ? config.description
+            : "Invalid color. Preview stays on the last valid value.";
+          message.classList.toggle("is-error", !fieldState.valid);
+        });
+      }
+
+      function renderColorExperimentScales(scales) {
+        const host = document.getElementById("colorExperimentScales");
+
+        host.innerHTML = experimentScaleFamilies
+          .map((config) => {
+            const tones = scales[config.key];
+
+            return `
+              <div class="experiment-scale-card">
+                <div class="experiment-scale-card__header">
+                  <div>
+                    <h3>${config.label} scale</h3>
+                    <p class="control-note">Selected input is the exact 500 anchor. The rest of the scale is generated around it in HSL.</p>
+                  </div>
+                </div>
+                <div class="experiment-scale-card__grid">
+                  ${tones
+                    .map(
+                      (tone) => `
+                        <article class="experiment-swatch">
+                          <div class="experiment-swatch__fill" style="background:${tone.hex};color:${getReadableTextColor(tone.rgb)}">
+                            <span class="experiment-swatch__preview">Aa 0123</span>
+                          </div>
+                          <div class="experiment-swatch__body">
+                            <span class="experiment-swatch__token">--color-${config.key}-${tone.shade}</span>
+                            <span class="experiment-swatch__value">${tone.hex}</span>
+                            <span class="experiment-swatch__value">${tone.rgbText}</span>
+                            <span class="experiment-swatch__value">${tone.hslText}</span>
+                          </div>
+                        </article>`,
+                    )
+                    .join("")}
+                </div>
+              </div>`;
+          })
+          .join("");
+      }
+
+      function buildExperimentCssText(scales) {
+        const lines = [":root {"];
+
+        experimentScaleFamilies.forEach((config) => {
+          scales[config.key].forEach((tone) => {
+            lines.push(`  --color-${config.key}-${tone.shade}: ${tone.hex};`);
+          });
+        });
+
+        experimentSemanticFamilies.forEach((config) => {
+          lines.push(`  --color-${config.key}: ${experimentState[config.key].parsed.hex};`);
+        });
+
+        lines.push("}");
+        return lines.join("\n");
+      }
+
+      function applyExperimentVariables(scales) {
+        const scope = document.getElementById("colorExperimentScope");
+        const darkSurfaces = buildDarkSurfaceSet(scales);
+
+        experimentScaleFamilies.forEach((config) => {
+          scales[config.key].forEach((tone) => {
+            scope.style.setProperty(`--color-${config.key}-${tone.shade}`, tone.hex);
+          });
+        });
+
+        experimentSemanticFamilies.forEach((config) => {
+          scope.style.setProperty(`--color-${config.key}`, experimentState[config.key].parsed.hex);
+        });
+
+        scope.style.setProperty("--experiment-preview-deep-bg", darkSurfaces.background.hex);
+        scope.style.setProperty("--experiment-preview-deep-card", darkSurfaces.raised.hex);
+        scope.style.setProperty("--experiment-preview-deep-border", darkSurfaces.border.hex);
+        scope.style.setProperty("--experiment-preview-deep-secondary", darkSurfaces.secondary.hex);
+      }
+
+      function getTone(scale, shade) {
+        return scale.find((tone) => tone.shade === shade);
+      }
+
+      function buildDarkSurfaceSet(scales) {
+        const neutralBase = scales.neutral[scales.neutral.length - 1];
+        const surfaceBase = scales.surface[scales.surface.length - 1];
+        const primaryBase = scales.primary[scales.primary.length - 1];
+        const accentBase = scales.accent[2];
+
+        return {
+          background: createColorRecordFromHsl([
+            surfaceBase.hsl[0],
+            clamp(surfaceBase.hsl[1] * 0.52, 6, 18),
+            8,
+          ]),
+          surface: createColorRecordFromHsl([
+            surfaceBase.hsl[0],
+            clamp(surfaceBase.hsl[1] * 0.62, 8, 22),
+            13,
+          ]),
+          raised: createColorRecordFromHsl([
+            surfaceBase.hsl[0],
+            clamp(surfaceBase.hsl[1] * 0.7, 10, 28),
+            18,
+          ]),
+          secondary: createColorRecordFromHsl([
+            surfaceBase.hsl[0],
+            clamp(surfaceBase.hsl[1] * 0.74, 10, 30),
+            24,
+          ]),
+          border: createColorRecordFromHsl([
+            neutralBase.hsl[0],
+            clamp(neutralBase.hsl[1] * 0.48, 4, 12),
+            32,
+          ]),
+          textPrimary: createColorRecordFromHsl([
+            neutralBase.hsl[0],
+            clamp(neutralBase.hsl[1] * 0.18, 1, 6),
+            96,
+          ]),
+          textSecondary: createColorRecordFromHsl([
+            neutralBase.hsl[0],
+            clamp(neutralBase.hsl[1] * 0.22, 2, 8),
+            76,
+          ]),
+          heading: createColorRecordFromHsl([
+            primaryBase.hsl[0],
+            clamp(primaryBase.hsl[1] * 0.36, 6, 20),
+            84,
+          ]),
+          primaryAction: createColorRecordFromHsl([
+            primaryBase.hsl[0],
+            clamp(primaryBase.hsl[1] * 0.8, 24, 56),
+            42,
+          ]),
+          primaryActionHover: createColorRecordFromHsl([
+            primaryBase.hsl[0],
+            clamp(primaryBase.hsl[1] * 0.76, 22, 52),
+            34,
+          ]),
+          accent: createColorRecordFromHsl([
+            accentBase.hsl[0],
+            clamp(accentBase.hsl[1], 28, 72),
+            64,
+          ]),
+          accentHover: createColorRecordFromHsl([
+            accentBase.hsl[0],
+            clamp(accentBase.hsl[1], 28, 72),
+            72,
+          ]),
+        };
+      }
+
+      function applyExperimentDocumentTheme(scales) {
+        const rootStyle = document.documentElement.style;
+        const primaryScale = scales.primary;
+        const neutralScale = scales.neutral;
+        const surfaceScale = scales.surface;
+        const accentScale = scales.accent;
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const isDarkTheme = currentTheme === "dark";
+        const deepNeutral = createColorRecordFromHsl([
+          neutralScale[neutralScale.length - 1].hsl[0],
+          neutralScale[neutralScale.length - 1].hsl[1],
+          clamp(neutralScale[neutralScale.length - 1].hsl[2] - 6, 4, 99),
+        ]);
+        const darkSurfaces = buildDarkSurfaceSet(scales);
+
+        const mappedValues = isDarkTheme
+          ? {
+              "--bg": darkSurfaces.background.hex,
+              "--surface": darkSurfaces.surface.hex,
+              "--surface-raised": darkSurfaces.raised.hex,
+              "--border": darkSurfaces.border.hex,
+              "--text-primary": darkSurfaces.textPrimary.hex,
+              "--text-secondary": darkSurfaces.textSecondary.hex,
+              "--accent": darkSurfaces.accent.hex,
+              "--accent-hover": darkSurfaces.accentHover.hex,
+              "--success": experimentState.success.parsed.hex,
+              "--warning": experimentState.warning.parsed.hex,
+              "--error": experimentState.error.parsed.hex,
+              "--info": experimentState.info.parsed.hex,
+              "--page-heading": darkSurfaces.heading.hex,
+              "--page-primary-action": getTone(primaryScale, 700).hex,
+              "--page-primary-action-hover": getTone(primaryScale, 800).hex,
+              "--gray-50": getTone(neutralScale, 50).hex,
+              "--gray-100": getTone(neutralScale, 100).hex,
+              "--gray-200": getTone(neutralScale, 200).hex,
+              "--gray-300": getTone(neutralScale, 300).hex,
+              "--gray-400": getTone(neutralScale, 400).hex,
+              "--gray-500": getTone(neutralScale, 500).hex,
+              "--gray-600": getTone(neutralScale, 600).hex,
+              "--gray-700": getTone(neutralScale, 700).hex,
+              "--gray-800": getTone(neutralScale, 800).hex,
+              "--gray-900": getTone(neutralScale, 900).hex,
+              "--gray-950": deepNeutral.hex,
+              "--accent-400": getTone(accentScale, 400).hex,
+              "--accent-500": getTone(accentScale, 500).hex,
+              "--accent-600": getTone(accentScale, 600).hex,
+              "--accent-700": getTone(accentScale, 700).hex,
+            }
+          : {
+              "--bg": getTone(surfaceScale, 50).hex,
+              "--surface": getTone(surfaceScale, 100).hex,
+              "--surface-raised": getTone(surfaceScale, 50).hex,
+              "--border": getTone(neutralScale, 200).hex,
+              "--text-primary": "var(--theme-charcoal)",
+              "--text-secondary": "var(--theme-charcoal-muted)",
+              "--accent": getTone(accentScale, 600).hex,
+              "--accent-hover": getTone(accentScale, 700).hex,
+              "--success": experimentState.success.parsed.hex,
+              "--warning": experimentState.warning.parsed.hex,
+              "--error": experimentState.error.parsed.hex,
+              "--info": experimentState.info.parsed.hex,
+              "--page-heading": "var(--theme-charcoal-strong)",
+              "--page-primary-action": getTone(primaryScale, 700).hex,
+              "--page-primary-action-hover": getTone(primaryScale, 800).hex,
+              "--gray-50": getTone(neutralScale, 50).hex,
+              "--gray-100": getTone(neutralScale, 100).hex,
+              "--gray-200": getTone(neutralScale, 200).hex,
+              "--gray-300": getTone(neutralScale, 300).hex,
+              "--gray-400": getTone(neutralScale, 400).hex,
+              "--gray-500": getTone(neutralScale, 500).hex,
+              "--gray-600": getTone(neutralScale, 600).hex,
+              "--gray-700": getTone(neutralScale, 700).hex,
+              "--gray-800": getTone(neutralScale, 800).hex,
+              "--gray-900": getTone(neutralScale, 900).hex,
+              "--gray-950": deepNeutral.hex,
+              "--accent-400": getTone(accentScale, 400).hex,
+              "--accent-500": getTone(accentScale, 500).hex,
+              "--accent-600": getTone(accentScale, 600).hex,
+              "--accent-700": getTone(accentScale, 700).hex,
+            };
+
+        Object.entries(mappedValues).forEach(([token, value]) => {
+          rootStyle.setProperty(token, value);
+        });
+      }
+
+      function clearExperimentDocumentTheme() {
+        const rootStyle = document.documentElement.style;
+        [
+          "--bg",
+          "--surface",
+          "--surface-raised",
+          "--border",
+          "--text-primary",
+          "--text-secondary",
+          "--accent",
+          "--accent-hover",
+          "--success",
+          "--warning",
+          "--error",
+          "--info",
+          "--page-heading",
+          "--page-primary-action",
+          "--page-primary-action-hover",
+          "--gray-50",
+          "--gray-100",
+          "--gray-200",
+          "--gray-300",
+          "--gray-400",
+          "--gray-500",
+          "--gray-600",
+          "--gray-700",
+          "--gray-800",
+          "--gray-900",
+          "--gray-950",
+          "--accent-400",
+          "--accent-500",
+          "--accent-600",
+          "--accent-700",
+        ].forEach((token) => rootStyle.removeProperty(token));
+      }
+
+      function toggleExperimentDocumentApply() {
+        experimentApplyToDocument = !experimentApplyToDocument;
+        renderExperimentDocumentApplyToggle();
+        updateColorExperiment();
+      }
+
+      function setCopyStatus(message) {
+        const status = document.getElementById("copyCssVariablesStatus");
+        status.textContent = message;
+
+        if (copyStatusTimer) {
+          window.clearTimeout(copyStatusTimer);
+        }
+
+        if (message) {
+          copyStatusTimer = window.setTimeout(() => {
+            status.textContent = "";
+          }, 2400);
+        }
+      }
+
+      async function copyExperimentCss() {
+        const cssText = document.getElementById("colorExperimentCss").textContent;
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(cssText);
+          } else {
+            const helper = document.createElement("textarea");
+            helper.value = cssText;
+            helper.setAttribute("readonly", "");
+            helper.style.position = "fixed";
+            helper.style.opacity = "0";
+            document.body.appendChild(helper);
+            helper.select();
+            document.execCommand("copy");
+            document.body.removeChild(helper);
+          }
+
+          setCopyStatus("Copied CSS variables.");
+        } catch (error) {
+          setCopyStatus("Copy failed. You can still select the generated CSS below.");
+        }
+      }
+
+      function updateExperimentColor(key, rawValue) {
+        const fieldState = experimentState[key];
+        const parsed = parseColorInput(rawValue);
+
+        fieldState.raw = rawValue;
+
+        if (parsed) {
+          fieldState.parsed = parsed;
+          fieldState.valid = true;
+        } else {
+          fieldState.valid = false;
+        }
+
+        activeExperimentPresetId = null;
+        renderColorExperimentPresets();
+
+        refreshColorExperimentInputs();
+        updateColorExperiment();
+      }
+
+      function applyExperimentPreset(presetId) {
+        const preset = experimentPalettePresets.find((item) => item.id === presetId);
+
+        if (!preset) {
+          return;
+        }
+
+        activeExperimentPresetId = preset.id;
+
+        experimentColorConfigs.forEach((config) => {
+          const nextRaw = preset.values[config.key];
+          const parsed = parseColorInput(nextRaw);
+          const fieldState = experimentState[config.key];
+
+          fieldState.raw = nextRaw;
+          fieldState.parsed = parsed ?? fieldState.parsed;
+          fieldState.valid = Boolean(parsed);
+
+          const input = document.getElementById(`experimentInput-${config.key}`);
+          if (input) {
+            input.value = nextRaw;
+          }
+        });
+
+        renderColorExperimentPresets();
+        refreshColorExperimentInputs();
+        updateColorExperiment();
+      }
+
+      function updateColorExperiment() {
+        const scales = {};
+
+        experimentScaleFamilies.forEach((config) => {
+          scales[config.key] = generateScaleFromAnchor(experimentState[config.key].parsed, config.key);
+        });
+
+        applyExperimentVariables(scales);
+        if (experimentApplyToDocument) {
+          applyExperimentDocumentTheme(scales);
+        } else {
+          clearExperimentDocumentTheme();
+        }
+        renderColorExperimentScales(scales);
+        document.getElementById("colorExperimentCss").textContent = buildExperimentCssText(scales);
+      }
+
+      function initColorExperiment() {
+        experimentColorProbe = document.createElement("span");
+        experimentColorProbe.style.position = "fixed";
+        experimentColorProbe.style.opacity = "0";
+        experimentColorProbe.style.pointerEvents = "none";
+        experimentColorProbe.style.inset = "0 auto auto 0";
+        document.body.appendChild(experimentColorProbe);
+
+        experimentColorConfigs.forEach((config) => {
+          experimentState[config.key] = {
+            raw: config.defaultValue,
+            parsed: parseColorInput(config.defaultValue),
+            valid: true,
+          };
+        });
+
+        renderColorExperimentInputs();
+        renderColorExperimentPresets();
+        renderExperimentDocumentApplyToggle();
+        applyExperimentPreset(activeExperimentPresetId);
+      }
+
+      const grays = [
+        ["50", "#F8F9FA"],
+        ["100", "#EEF0F2"],
+        ["200", "#DDE1E6"],
+        ["400", "#9AA2AD"],
+        ["700", "#3B4149"],
+        ["950", "#0B0C0E"],
+      ];
+
+      document.getElementById("grayScale").innerHTML = grays
+        .map(
+          ([name, hex]) =>
+            `<div class="swatch"><div class="fill" style="background:${hex}"></div><div class="label"><b>gray-${name}</b>${hex}</div></div>`,
+        )
+        .join("");
+
+      const accents = [
+        ["Accent 600 (primary)", "var(--accent-600)"],
+        ["Success", "var(--success)"],
+        ["Warning", "var(--warning)"],
+        ["Error", "var(--error)"],
+      ];
+
+      document.getElementById("accentScale").innerHTML = accents
+        .map(
+          ([name, value]) =>
+            `<div class="swatch"><div class="fill" style="background:${value}"></div><div class="label"><b>${name}</b>AA on white/dark</div></div>`,
+        )
+        .join("");
+
+      const cats = [
+        ["cat-1", "var(--cat-1)"],
+        ["cat-2", "var(--cat-2)"],
+        ["cat-3", "var(--cat-3)"],
+        ["cat-4", "var(--cat-4)"],
+        ["cat-5", "var(--cat-5)"],
+        ["cat-6", "var(--cat-6)"],
+      ];
+
+      document.getElementById("catScale").innerHTML = cats
+        .map(
+          ([name], index) =>
+            `<div class="swatch"><div class="fill fill--series" data-series="${index + 1}" data-pattern="${seriesPatterns[index][0]}"></div><div class="label"><b>${name}</b>${seriesPatterns[index][1]} texture</div></div>`,
+        )
+        .join("");
+
+      const typeRows = [
+        ["Display", "40 / 700 / 1.1", "56px", "700", "1.1", "Lok Sabha Elections 2029"],
+        ["H1", "32 / 700 / 1.2", "40px", "700", "1.2", "Constituency-wise turnout"],
+        ["H2", "24 / 600 / 1.25", "32px", "600", "1.25", "Vote share by party"],
+        ["H3", "—", "24px", "600", "1.35", "State summary"],
+        [
+          "Body",
+          "base / 400 / 1.6",
+          "16px",
+          "400",
+          "1.6",
+          "Turnout in this constituency was 57.3%, roughly in line with the state average.",
+        ],
+        [
+          "Caption",
+          "small / 400 / 1.5",
+          "13px",
+          "400",
+          "1.5",
+          "Source: Election Commission of India, 2029 provisional data",
+        ],
+        ["Mono / data", "tabular nums", "16px", "500", "1.4", "1,52,513 votes"],
+      ];
+
+      document.getElementById("typeScale").innerHTML = typeRows
+        .map(
+          ([name, ratio, size, weight, lineHeight, sample]) => `
+            <div class="type-row">
+              <div class="meta">${name}<br>${size} / ${weight}<br>${ratio}</div>
+              <div
+                class="sample"
+                style="font-size:${size};font-weight:${weight};line-height:${lineHeight};font-family:${name.includes("Mono") ? "var(--font-mono)" : "var(--font-ui)"}"
+              >
+                ${sample}
+              </div>
+            </div>`,
+        )
+        .join("");
+
+      const spacing = [
+        ["2xs", 4],
+        ["xs", 8],
+        ["sm", 12],
+        ["md", 16],
+        ["lg", 24],
+        ["xl", 32],
+        ["2xl", 48],
+        ["3xl", 64],
+      ];
+
+      document.getElementById("spacingScale").innerHTML = spacing
+        .map(
+          ([name, px]) => `
+            <div class="sp-row">
+              <div class="name">${name}</div>
+              <div class="sp-bar" style="width:${px * 2}px"></div>
+              <div class="px">${px}px</div>
+            </div>`,
+        )
+        .join("");
+
+      renderAccentControls();
+      renderTextureControls();
+      initColorExperiment();
+      applyTheme(themeIdx);
+    </script>
+  </body>
+</html>
