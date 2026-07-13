@@ -1,4 +1,4 @@
-import { Box, Icon, chakra, type IconProps } from '@chakra-ui/react';
+import { Box, chakra, type HTMLChakraProps } from '@chakra-ui/react';
 
 import { useThemeMode, type ThemeMode } from '@/app/theme-mode';
 
@@ -45,9 +45,9 @@ const previewStyles: Record<ThemeMode, TogglePreviewStyle> = {
   },
 };
 
-function SunIcon(props: IconProps) {
+function SunIcon(props: HTMLChakraProps<'svg'>) {
   return (
-    <Icon viewBox="0 0 24 24" {...props}>
+    <chakra.svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" {...props}>
       <circle cx="12" cy="12" r="4" fill="currentColor" />
       <path
         d="M12 2.75v2.5M12 18.75v2.5M21.25 12h-2.5M5.25 12h-2.5M18.54 5.46l-1.77 1.77M7.23 16.77l-1.77 1.77M18.54 18.54l-1.77-1.77M7.23 7.23L5.46 5.46"
@@ -56,18 +56,15 @@ function SunIcon(props: IconProps) {
         strokeLinecap="round"
         strokeWidth="1.7"
       />
-    </Icon>
+    </chakra.svg>
   );
 }
 
-function MoonIcon(props: IconProps) {
+function MoonIcon(props: HTMLChakraProps<'svg'>) {
   return (
-    <Icon viewBox="0 0 24 24" {...props}>
-      <path
-        d="M20.2 14.1A8.55 8.55 0 0 1 9.9 3.8 8.65 8.65 0 1 0 20.2 14.1Z"
-        fill="currentColor"
-      />
-    </Icon>
+    <chakra.svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" {...props}>
+      <path d="M20.2 14.1A8.55 8.55 0 0 1 9.9 3.8 8.65 8.65 0 1 0 20.2 14.1Z" fill="currentColor" />
+    </chakra.svg>
   );
 }
 
